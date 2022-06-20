@@ -15,7 +15,7 @@ exports.postLogin = async (req, res) => {
     const { errors, valid } = validateLoginInput(email, password);
 
     if (!valid) {
-      return res.status(401).json({
+      return res.status(200).json({
         errors,
       });
     }
@@ -25,7 +25,7 @@ exports.postLogin = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(401).json({
+      return res.status(200).json({
         error: "Email or password isn't matched",
       });
     }
@@ -33,12 +33,19 @@ exports.postLogin = async (req, res) => {
     const isEqual = await bcrypt.compare(password, user.password);
 
     if (!isEqual) {
-      return res.status(401).json({
+      return res.status(200).json({
         error: "Email or password isn't matched",
       });
     }
 
     const token = genAccTkn.generateAccessToken(user);
+
+    if (!token) {
+      return res.status(200).json({
+        error: "Token not generated",
+      });
+    }
+
     return res.status(200).json({
       id: user.id,
       token,
@@ -51,17 +58,14 @@ exports.postLogin = async (req, res) => {
 
 exports.postRegister = async (req, res) => {
   try {
-    const name = req.body.name;
+    
     const username = req.body.username;
     const email = req.body.email;
-    const phone = req.body.phone;
     const password = req.body.password;
 
     const { valid, errors } = validateRegisterInput(
-      name,
       username,
       email,
-      phone,
       password
     );
 
@@ -84,10 +88,8 @@ exports.postRegister = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const user = new User({
-      name,
       username,
       email,
-      phone,
       role: "user",
       password: hashedPassword,
       orders: [],

@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require('cors')
 const path = require('path');
 const fileUpload = require("express-fileupload");
 
@@ -13,6 +14,7 @@ const production = process.env.NODE_ENV === "production";
 require("dotenv").config();
 
 const app = express();
+app.use(cors())
 
 production && app.use(express.static(path.join(__dirname, "../client/build")));
 
@@ -38,3 +40,4 @@ production && (
 )
 
 app.listen(process.env.PORT || 5000);
+console.log("App listening on PORT: " + process.env.PORT || "5000")

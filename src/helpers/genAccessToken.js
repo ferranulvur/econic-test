@@ -8,7 +8,7 @@ exports.generateAccessToken = (user = {}) => {
       email: user.email,
       username: user.username,
     },
-    process.env.ACCESS_TOKEN_SECRET,
+    process.env.JWT_SECRET,
     {
       expiresIn: "24h",
     }

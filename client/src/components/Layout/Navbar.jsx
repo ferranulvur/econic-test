@@ -547,9 +547,9 @@ function Navbar() {
                         <li className="nav-item">
                           <button
                             onClick={handleLogout}
-                            className="nav-logout-btn"
+                            className="btn btn-secondary nav-logout-btn"
                           >
-                            Logout
+                            Logoout
                           </button>
                         </li>
                         <li className="nav-item">
@@ -565,10 +565,13 @@ function Navbar() {
 
               <div className="others-option d-flex align-items-center">
                 <div className="option-item  respo-nav">
-                {!context.token && <Link to="/login">Login</Link>} Or{" "}
-                  {!context.token && <Link to="/register">Register</Link>}
+                  {!context.token && (
+                    <a className="login-btn btn btn-primary" href="/login">
+                      Login
+                    </a>
+                  )}
                   {context.token && (
-                    <button className="logout-btn" onClick={handleLogout}>
+                    <button className="logout-btn btn btn-primary" onClick={handleLogout}>
                       Logout
                     </button>
                   )}

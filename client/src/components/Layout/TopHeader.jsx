@@ -33,7 +33,7 @@ function TopHeader({ shippingMessage, history }) {
                   {!context.token && <Link to="/login">Login</Link>} Or{" "}
                   {!context.token && <Link to="/register">Register</Link>}
                   {context.token && (
-                    <button className="logout-btn" onClick={handleLogout}>
+                    <button className="logout-btn btn btn-primary" onClick={handleLogout}>
                       Logout
                     </button>
                   )}
