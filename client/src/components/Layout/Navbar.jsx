@@ -109,74 +109,47 @@ function Navbar() {
                     </a>
                     <ul className="dropdown-menu">
                       <li className="nav-item">
-                        <Link to="/shop/camera" className="nav-link">
-                          <i className="flaticon-camera"></i>
-                          Cameras
+                        <Link to="/shop/semillas_cannabis" className="nav-link">
+                          Semillas Cannabis
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/shop/speaker" className="nav-link">
-                          <i className="flaticon-stereo"></i>
-                          Audio
+                        <Link to="/shop/semillas_feminizadas" className="nav-link">
+                          Semillas Feminizadas
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/shop/tv" className="nav-link">
-                          <i className="flaticon-tv-box"></i>
-                          TV
+                        <Link to="/shop/semillas_autoflorecientes" className="nav-link">
+                          Semillas Autoflorecientes
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/shop/phone" className="nav-link">
-                          <i className="flaticon-smartphone"></i>
-                          Mobiles
+                        <Link to="/shop/productos_cbd" className="nav-link">
+                          Productos de CBD
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/shop/headphone" className="nav-link">
-                          <i className="flaticon-headphones"></i>
-                          Headphone
+                        <Link to="/shop/merchandising" className="nav-link">
+                          Merchandising
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/shop/watch" className="nav-link">
-                          <i className="flaticon-smart-watch"></i>
-                          Watches
+                        <Link to="/shop/hemp_foods" className="nav-link">
+                          Hemp Foods
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/shop/computer" className="nav-link">
-                          <i className="flaticon-desktop-computer"></i>
-                          Computers
+                        <Link to="/shop/vaporizadores" className="nav-link">
+                          Vaporizadores
                         </Link>
                       </li>
 
-                      <li className="nav-item">
-                        <Link to="/shop/computer" className="nav-link">
-                          <i className="flaticon-laptop"></i>
-                          Laptop
-                        </Link>
-                      </li>
-
-                      <li className="nav-item">
-                        <Link to="/shop/battery" className="nav-link">
-                          <i className="flaticon-battery-charge"></i>
-                          Battery
-                        </Link>
-                      </li>
-
-                      <li className="nav-item">
-                        <Link to="/shop/accesories" className="nav-link">
-                          <i className="flaticon-trimmer"></i>
-                          Accessories
-                        </Link>
-                      </li>
                     </ul>
                   </li>
                 </ul>
@@ -185,41 +158,6 @@ function Navbar() {
 
             <div className="collapse navbar-collapse mean-menu">
               <ul className="navbar-nav responsive-menu">
-                <li className="nav-item">
-                  <NavLink
-                    to={"/"}
-                    isActive={() => homeRoutes.includes(pathname)}
-                    className="nav-link"
-                  >
-                    Home <i className="bx bx-chevron-down chevron-display"></i>
-                    <span className="plus_icon">+</span>
-                  </NavLink>
-                  <ul className="dropdown-menu">
-                    <li className="nav-item">
-                      <NavLink to={"/"} className="nav-link">
-                        Home
-                      </NavLink>
-                    </li>
-
-                    <li className="nav-item">
-                      <NavLink to={"/home-two"} className="nav-link">
-                        Home Two
-                      </NavLink>
-                    </li>
-
-                    <li className="nav-item">
-                      <NavLink to={"/home-three"} className="nav-link">
-                        Home Three
-                      </NavLink>
-                    </li>
-
-                    <li className="nav-item">
-                      <NavLink to={"/home-four"} className="nav-link">
-                        Home Four
-                      </NavLink>
-                    </li>
-                  </ul>
-                </li>
 
                 <li className="nav-item megamenu">
                   <NavLink
@@ -239,21 +177,6 @@ function Navbar() {
                               <li>
                                 <NavLink to={"/about"} className="nav-link">
                                   About Us
-                                </NavLink>
-                              </li>
-
-                              <li>
-                                <NavLink to={"/our-team"} className="nav-link">
-                                  Our Team
-                                </NavLink>
-                              </li>
-
-                              <li>
-                                <NavLink
-                                  to={"/pricing-plans"}
-                                  className="nav-link"
-                                >
-                                  Pricing Plans
                                 </NavLink>
                               </li>
 

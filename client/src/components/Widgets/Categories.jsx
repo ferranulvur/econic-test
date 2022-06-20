@@ -6,73 +6,46 @@ function Categories() {
       <ul className="categories">
         <li>
           <a href="#" className="nav-link">
-            <i className="flaticon-desktop-computer"></i>
-            Computers & Accessories
+            Semillas de Cannabis
           </a>
         </li>
 
         <li>
           <a href="#" className="nav-link">
-            <i className="flaticon-stereo"></i>
-            Audio & Home Theater
+            Semillas Feminizadas
           </a>
         </li>
 
         <li>
           <a href="#" className="nav-link">
-            <i className="flaticon-laptop"></i>
-            Laptop
+            Semillas Autoflorecientes
           </a>
         </li>
 
         <li>
           <a href="#" className="nav-link">
-            <i className="flaticon-tv-box"></i>
-            TV & Accessories
+            Productos de CBD
           </a>
         </li>
 
         <li>
           <a href="#" className="nav-link">
-            <i className="flaticon-smartphone"></i>
-            Mobiles & Tablets
+            Merchandising
           </a>
         </li>
 
         <li>
           <a href="#" className="nav-link">
-            <i className="flaticon-headphones"></i>
-            Headphone & Earphone
+            Hemp Foods
           </a>
         </li>
 
         <li>
           <a href="#" className="nav-link">
-            <i className="flaticon-battery-charge"></i>
-            Battery & Accessories
+            Vaporizadores
           </a>
         </li>
-
-        <li>
-          <a href="#" className="nav-link">
-            <i className="flaticon-smart-watch"></i>
-            Watches
-          </a>
-        </li>
-
-        <li>
-          <a href="#" className="nav-link">
-            <i className="flaticon-camera"></i>
-            Cameras
-          </a>
-        </li>
-
-        <li>
-          <a href="#" className="nav-link">
-            <i className="flaticon-trimmer"></i>
-            Accessories
-          </a>
-        </li>
+        
       </ul>
     </>
   );

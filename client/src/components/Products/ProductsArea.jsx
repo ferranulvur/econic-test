@@ -241,11 +241,13 @@ function ProductsArea({ products, history, editProduct, deleteProduct }) {
                         onChange={(e) => setType(e.target.value)}
                       >
                         <option>All Type</option>
-                        <option value="accessories">Accessories</option>
-                        <option value="cameras">Cameras</option>
-                        <option value="computers">Computers</option>
-                        <option value="laptop">Laptop</option>
-                        <option value="mobile">Mobile</option>
+                        <option value="semillas_cannabis">Semillas Cannabis</option>
+                        <option value="semillas_feminizadas">Semillas Feminizadas</option>
+                        <option value="semillas_autoflorecientes">Semillas Autoflorecientes</option>
+                        <option value="productos_cbd">Productos de CBD</option>
+                        <option value="merchandising">Merchandising</option>
+                        <option value="hemp_foods">Hemp Foods</option>
+                        <option value="vaporizadores">Vaporizadores</option>
                       </select>
                     </div>
                     <div className="form-group">

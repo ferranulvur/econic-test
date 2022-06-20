@@ -11,8 +11,6 @@ import Search from './pages/About/Search';
 import Login from "./pages/Authentications/Login";
 import Register from "./pages/Authentications/Register";
 import ResetPassword from "./pages/Authentications/ResetPassword";
-import OurTeam from "./pages/About/OurTeam";
-import PricingPlans from "./pages/About/PricingPlans";
 import Contact from "./pages/About/Contact";
 import Faqs from "./pages/About/Faqs";
 import Error404 from "./pages/About/Error-404";
@@ -31,7 +29,6 @@ import Orders from "./pages/Shop/Orders";
 import WishList from "./pages/Shop/WishList";
 import Checkout from "./pages/Shop/Checkout";
 import ProductsDetails from "./pages/Shop/ProductsDetails";
-import ProductsDetailsSidebar from "./pages/Shop/ProductsDetailsSidebar";
 import Blog from "./pages/Blog/Blog";
 import BlogListView from "./pages/Blog/BlogListView";
 import BlogLeftSidebar from "./pages/Blog/BlogLeftSidebar";
@@ -154,8 +151,6 @@ function App() {
               <Route path="/home-three" component={HomeThree} />
               <Route path="/home-four" component={HomeFour} />
               <Route path="/about" component={About} />
-              <Route path="/our-team" component={OurTeam} />
-              <Route path="/pricing-plans" component={PricingPlans} />
               <Route path="/search" component={Search} />
               <Route path="/contact" component={Contact} />
               <Route path="/faqs" component={Faqs} />
@@ -187,10 +182,6 @@ function App() {
               <Route
                 path="/products-details/:productId"
                 component={ProductsDetails}
-              />
-              <Route
-                path="/products-details-sidebar"
-                component={ProductsDetailsSidebar}
               />
               <Route path="/blog" component={Blog} />
               <Route path="/blog-list-view" component={BlogListView} />

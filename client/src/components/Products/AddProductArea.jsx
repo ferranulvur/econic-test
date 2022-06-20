@@ -109,16 +109,13 @@ function AddProductArea() {
                 onChange={(e) => setProductType(e.target.value)}
               >
                 <option>All Type</option>
-                <option value="accessories">Accessories</option>
-                <option value="audio">Audio</option>
-                <option value="beauty_picks">Beauty Picks</option>
-                <option value="cameras">Cameras</option>
-                <option value="computers">Computers</option>
-                <option value="electronics">Electronics</option>
-                <option value="laptop">Laptop</option>
-                <option value="mobile">Mobile</option>
-                <option value="watches">Watches</option>
-                <option value="headphone">Headphone</option>
+                <option value="semillas_cannabis">Semillas Cannabis</option>
+                <option value="semillas_feminizadas">Semillas Feminizadas</option>
+                <option value="semillas_autoflorecientes">Semillas Autoflorecientes</option>
+                <option value="productos_cbd">Productos de CBD</option>
+                <option value="merchandising">Merchandising</option>
+                <option value="hemp_foods">Hemp Foods</option>
+                <option value="vaporizadores">Vaporizadores</option>
               </select>
               {product_type === '' && <p className="error_color">{errors.product_type}</p>}
             </div>

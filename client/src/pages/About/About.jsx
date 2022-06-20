@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Founders from "../../components/About/Founders";
 import FunFactArea from "../../components/About/FunFactArea";
 import MissionArea from "../../components/About/MissionArea";
 import StoryArea from "../../components/About/StoryArea";
@@ -31,7 +30,6 @@ function About() {
           <MissionArea paddingClass=" ptb-50" />
           <VisionArea paddingClass=" ptb-50" />
           <FunFactArea paddingClass="  pt-50 pb-20" />
-          <Founders />
           <Testimonial />
           <SupportTwo paddingClass=" ptb-50" />
           <Partner paddingClass=" ptb-50" />

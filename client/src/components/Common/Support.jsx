@@ -4,6 +4,20 @@ function Support({ paddingClass = null }) {
       <div className="container">
         <div className="support-inner-box">
           <div className="row">
+
+
+          <div className="col-lg-3 col-md-6">
+              <div className="single-support">
+                <div className="icon">
+                  <i className="flaticon-return"></i>
+                </div>
+
+                <div className="support-content">
+                  <h3>NO Money Returns</h3>
+                </div>
+              </div>
+            </div>
+
             <div className="col-lg-3 col-md-6">
               <div className="single-support">
                 <div className="icon">
@@ -16,17 +30,6 @@ function Support({ paddingClass = null }) {
               </div>
             </div>
 
-            <div className="col-lg-3 col-md-6">
-              <div className="single-support">
-                <div className="icon">
-                  <i className="flaticon-return"></i>
-                </div>
-
-                <div className="support-content">
-                  <h3>30 Days Money Returns</h3>
-                </div>
-              </div>
-            </div>
 
             <div className="col-lg-3 col-md-6">
               <div className="single-support">

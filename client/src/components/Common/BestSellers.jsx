@@ -24,75 +24,52 @@ function BestSellers({
         <div className="tab bestsellers-list-tab">
           <ul className="tabs">
             <li
-              onClick={() => filterBestSellers("cameras")}
+              onClick={() => filterBestSellers("semillas_cannabis")}
               className={`tab-item${
-                filterBy === "cameras" ? " tab-active" : ""
+                filterBy === "semillas_cannabis" ? " tab-active" : ""
               }`}
             >
-              <span>Cameras</span>
+              <span>Semillas Cannabis</span>
             </li>
             <li
-              onClick={() => filterBestSellers("electronics")}
+              onClick={() => filterBestSellers("semillas_feminizadas")}
               className={`tab-item${
-                filterBy === "electronics" ? " tab-active" : ""
+                filterBy === "semillas_feminizadas" ? " tab-active" : ""
               }`}
             >
-              <span>Electronics</span>
+              <span>Semillas Feminizadas</span>
             </li>
             <li
-              onClick={() => filterBestSellers("audio")}
-              className={`tab-item${filterBy === "audio" ? " tab-active" : ""}`}
+              onClick={() => filterBestSellers("productos_cbd")}
+              className={`tab-item${filterBy === "productos_cbd" ? " tab-active" : ""}`}
             >
-              <span>Audio</span>
+              <span>Productos CBD</span>
             </li>
             <li
-              onClick={() => filterBestSellers("computers")}
+              onClick={() => filterBestSellers("merchandising")}
               className={`tab-item${
-                filterBy === "computers" ? " tab-active" : ""
+                filterBy === "merchandising" ? " tab-active" : ""
               }`}
             >
-              <span>Computers</span>
+              <span>Merchandising</span>
             </li>
             <li
-              onClick={() => filterBestSellers("accessories")}
+              onClick={() => filterBestSellers("hemp_foods")}
               className={`tab-item${
-                filterBy === "accessories" ? " tab-active" : ""
+                filterBy === "hemp_foods" ? " tab-active" : ""
               }`}
             >
-              <span>Accessories</span>
+              <span>Hemp Foods</span>
             </li>
             <li
-              onClick={() => filterBestSellers("laptop")}
+              onClick={() => filterBestSellers("vaporizadores")}
               className={`tab-item${
-                filterBy === "laptop" ? " tab-active" : ""
+                filterBy === "vaporizadores" ? " tab-active" : ""
               }`}
             >
-              <span>Laptop</span>
+              <span>Vaporizadores</span>
             </li>
-            <li
-              onClick={() => filterBestSellers("watches")}
-              className={`tab-item${
-                filterBy === "watches" ? " tab-active" : ""
-              }`}
-            >
-              <span>Watches</span>
-            </li>
-            <li
-              onClick={() => filterBestSellers("mobile")}
-              className={`tab-item${
-                filterBy === "mobile" ? " tab-active" : ""
-              }`}
-            >
-              <span>Mobile</span>
-            </li>
-            <li
-              onClick={() => filterBestSellers("headphone")}
-              className={`tab-item${
-                filterBy === "headphone" ? " tab-active" : ""
-              }`}
-            >
-              <span>Headphone</span>
-            </li>
+
           </ul>
           <div className="tab_content">
             <div className="tabs_item">
