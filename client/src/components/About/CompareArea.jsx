@@ -237,13 +237,6 @@ function CompareArea() {
               </tr>
 
               <tr>
-                <td>Color</td>
-                <td>White</td>
-                <td>Black</td>
-                <td>Blue</td>
-              </tr>
-
-              <tr>
                 <td>Size</td>
                 <td>20</td>
                 <td>22</td>

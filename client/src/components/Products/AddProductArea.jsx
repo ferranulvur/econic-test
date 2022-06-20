@@ -7,7 +7,6 @@ function AddProductArea() {
   const [product_description, setProductDescription] = useState("");
   const [product_images, setProductImages] = useState("");
   const [product_type, setProductType] = useState("");
-  const [product_color, setProductColor] = useState("");
   const [product_price, setProductPrice] = useState("");
   const [product_totalInStock, setTotalInStock] = useState("");
   const [message, setMessage] = useState("");
@@ -20,7 +19,6 @@ function AddProductArea() {
     formData.append("product_description", product_description);
     formData.append("file", product_images);
     formData.append("product_type", product_type);
-    formData.append("product_color", product_color);
     formData.append("product_price", product_price);
     formData.append("total_in_stock", product_totalInStock);
     formData.append("upload_preset", "vikings");
@@ -45,7 +43,6 @@ function AddProductArea() {
                 setProductDescription("");
                 setProductType("");
                 setProductImages("");
-                setProductColor("");
                 setProductPrice("");
                 setTotalInStock("");
                 setErrors('');
@@ -118,18 +115,6 @@ function AddProductArea() {
                 <option value="vaporizadores">Vaporizadores</option>
               </select>
               {product_type === '' && <p className="error_color">{errors.product_type}</p>}
-            </div>
-            <div className="form-group">
-              <label htmlFor="product_color">Product Color</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Color"
-                id="product_color"
-                value={product_color}
-                onChange={(e) => setProductColor(e.target.value)}
-              />
-              {product_color === '' && <p className="error_color">{errors.product_color}</p>}
             </div>
             <div className="form-group">
               <label htmlFor="product_price">Product Price</label>

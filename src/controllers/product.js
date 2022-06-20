@@ -33,7 +33,6 @@ exports.addProduct = async (req, res) => {
     const description = req.body.product_description;
     const type = req.body.product_type;
     const price = req.body.product_price;
-    const color = req.body.product_color;
     const total_in_stock = req.body.total_in_stock;
     const image_public_id = req.body.image_public_id;
     const file = req.files.file;
@@ -45,7 +44,6 @@ exports.addProduct = async (req, res) => {
       images: file.name,
       image_public_id,
       price,
-      color,
       reviews: [],
       total_in_stock,
       createdAt: new Date().toISOString(),
@@ -96,7 +94,6 @@ exports.editProduct = async (req, res) => {
     const description = req.body.product_description;
     const type = req.body.product_type;
     const price = req.body.product_price;
-    const color = req.body.product_color;
     const image_public_id = req.body.image_public_id;
     const total_in_stock = req.body.total_in_stock;
 
@@ -108,7 +105,6 @@ exports.editProduct = async (req, res) => {
           description,
           type,
           price,
-          color,
           total_in_stock,
           image_public_id
         },

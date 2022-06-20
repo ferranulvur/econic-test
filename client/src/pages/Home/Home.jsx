@@ -14,8 +14,8 @@ import Collection from "../../components/Common/Collection";
 import Overview from "../../components/Home/Home-one/Overview";
 import Banner from "../../components/Home/Home-one/Banner";
 import Partner from "../../components/Common/Partner";
+import Shop from "../../components/Shop/ShopArea";
 import SpecialOffer from "../../components/Home/Home-one/SpecialOffer";
-import SpecialProducts from "../../components/Home/Home-one/SpecialProducts";
 import QuickView from "../../components/Products/QuickView";
 import Preloader from "../../components/Common/Preloader";
 import cartContext from "../../contexts/cart-context";
@@ -73,25 +73,20 @@ function Home() {
           <Banner />
           <Overview />
           <Support />
-          <NewArrivals
+          <Shop
             paddingClass="pt-100 pb-70"
             products={products}
             addToCart={addToCart}
             showQuickView={showQuickView}
           />
-          <SpecialOffer products={products} />
-          <Collection />
-          <BestSellers
+          {/* <SpecialOffer products={products} /> */}
+          {/* <Collection /> */}
+          {/* <BestSellers
             paddingClass="pb-70"
             products={products}
             showQuickView={showQuickView}
             addToCart={addToCart}
-          />
-          <SpecialProducts
-            products={products}
-            showQuickView={showQuickView}
-            addToCart={addToCart}
-          />
+          /> */}
           <LatestNews />
           <Partner paddingClass=" ptb-100" />
 

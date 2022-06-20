@@ -24,7 +24,6 @@ function Products() {
     prod_description,
     prod_image,
     prod_type,
-    prod_color,
     prod_price,
     prod_instock,
     imagePublicId,
@@ -36,7 +35,6 @@ function Products() {
     formData.append("product_description", prod_description);
 
     formData.append("product_type", prod_type);
-    formData.append("product_color", prod_color);
     formData.append("product_price", prod_price);
     formData.append("total_in_stock", prod_instock);
     formData.append("image_public_id", prod_image);

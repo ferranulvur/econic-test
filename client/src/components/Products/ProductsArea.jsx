@@ -10,7 +10,6 @@ function ProductsArea({ products, history, editProduct, deleteProduct }) {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [type, setType] = useState("");
-  const [color, setColor] = useState("");
   const [price, setPrice] = useState("");
   const [inStock, setInStock] = useState("");
   const [role, setRole] = useState("user");
@@ -43,7 +42,6 @@ function ProductsArea({ products, history, editProduct, deleteProduct }) {
     setDescription(product.description);
     setProductImages(product.image_public_id);
     setType(product.type);
-    setColor(product.color);
     setPrice(product.price);
     setInStock(product.total_in_stock);
     setImagePublicId(imagePublicId);
@@ -254,15 +252,6 @@ function ProductsArea({ products, history, editProduct, deleteProduct }) {
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Product Color"
-                        value={color}
-                        onChange={(e) => setColor(e.target.value)}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control"
                         placeholder="Product Price"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
@@ -298,7 +287,6 @@ function ProductsArea({ products, history, editProduct, deleteProduct }) {
                         description,
                         product_images,
                         type,
-                        color,
                         price,
                         inStock
                       )

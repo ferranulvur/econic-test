@@ -3,9 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 import Home from "./pages/Home/Home";
-import HomeTwo from "./pages/Home/HomeTwo";
-import HomeThree from "./pages/Home/HomeThree";
-import HomeFour from "./pages/Home/HomeFour";
 import About from "./pages/About/About";
 import Search from './pages/About/Search';
 import Login from "./pages/Authentications/Login";
@@ -147,9 +144,6 @@ function App() {
             <Navbar />
             <Switch>
               <Route path="/" exact component={Home} />
-              <Route path="/home-two" component={HomeTwo} />
-              <Route path="/home-three" component={HomeThree} />
-              <Route path="/home-four" component={HomeFour} />
               <Route path="/about" component={About} />
               <Route path="/search" component={Search} />
               <Route path="/contact" component={Contact} />

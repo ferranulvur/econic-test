@@ -142,8 +142,8 @@ function Footer() {
           <div className="copyright-area-content">
             <p>
               Copyright @2022 Northen Seeds. All Rights Reserved by
-              <a href="https://hibootstrap.com/" target="_blank" rel="noreferrer">
-              HiBootstrap
+              <a href="https://SafeLifeDEV.com/" target="_blank" rel="noreferrer">
+              SafeLifeDEV
               </a>
             </p>
           </div>

@@ -85,18 +85,6 @@ function ProductsDetailsArea() {
                   </li>
                 </ul>
 
-                <div className="products-color-switch">
-                  <p className="available-color">
-                    <span>Color</span> :
-                    <a href="#" style={{ backgroundColor: "#a53c43" }}></a>
-                    <a href="#" style={{ backgroundColor: "#192861" }}></a>
-                    <a href="#" style={{ backgroundColor: "#c58a84" }}></a>
-                    <a href="#" style={{ backgroundColor: "#ecc305" }}></a>
-                    <a href="#" style={{ backgroundColor: "#000000" }}></a>
-                    <a href="#" style={{ backgroundColor: "#808080" }}></a>
-                  </p>
-                </div>
-
                 <div className="product-quantities">
                   <span>Quantities:</span>
 

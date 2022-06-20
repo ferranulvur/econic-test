@@ -16,9 +16,6 @@ export default function validateInfo(values) {
     errors.product_type = "Product type is required";
   }
 
-  if (!values.product_color) {
-    errors.product_color = "Product color is required";
-  }
   if (!values.product_price) {
     errors.product_price = "Product Price is required";
   }
