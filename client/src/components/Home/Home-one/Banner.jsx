@@ -3,10 +3,11 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import {Link} from 'react-router-dom';
+import "./Banner.css";
 
 import headphone from "../../../assets/img/main-slider/headphone.png";
 import monitor from "../../../assets/img/main-slider/monitor.png";
-import drone from "../../../assets/img/main-slider/green1.png";
+import bannerImage from "../../../assets/img/logo.png";
 
 const Banner = () => {
   return (
@@ -24,16 +25,14 @@ const Banner = () => {
       <div className="main-slider-item">
         <div className="d-table">
           <div className="d-table-cell">
-            <div className="container">
+            <div className="container content-container-custom">
               <div className="row align-items-center">
                 <div className="col-lg-6">
                   <div className="main-slider-content">
-                    <b>Big Sale Offer</b>
-                    <h1>The Drone has an Attractive Gift Free</h1>
+                    <b>Northern Seeds</b>
+                    <h2>Semillas de marihuana de calidad</h2>
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
+                      Nuestras semillas han sido concepcionadas para que florezcan plantas de marihuana de calidad
                     </p>
 
                     <div className="slider-btn">
@@ -48,7 +47,7 @@ const Banner = () => {
 
                 <div className="col-lg-6">
                   <div className="main-slider-image">
-                    <img src={drone} alt="image" />
+                    <img src={bannerImage} className="pa2 cf vh-100-ns"/>
                   </div>
                 </div>
               </div>

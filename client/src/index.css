@@ -2061,7 +2061,11 @@ h6:last-child {
     #ccdbec,
     #dce6f2
   );
-  height: 730px;
+  background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url("./assets/img/main-slider/seeds-background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 80vh;
 }
 .main-slider-item-box {
   background-image: url(assets/img/main-slider/slider-bg-1.jpg);
