@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <>
-      <section className="footer-area pt-100 pb-70">
+      {/* <section className="footer-area pt-100 pb-70">
         <div className="container">
           <div className="row">
             <div className="col-lg-3 col-sm-6">
@@ -21,7 +21,7 @@ function Footer() {
                   </li>
                   <li>
                     <span>Email:</span>
-                    <a href="mailto:hello@econix.com">hello@econix.com</a>
+                    <a href="mailto:hello@Northen Seeds.com">hello@Northen Seeds.com</a>
                   </li>
                 </ul>
                 
@@ -136,12 +136,12 @@ function Footer() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       <div className="copyright-area">
         <div className="container">
           <div className="copyright-area-content">
             <p>
-              Copyright @2022 Econix. All Rights Reserved by
+              Copyright @2022 Northen Seeds. All Rights Reserved by
               <a href="https://hibootstrap.com/" target="_blank" rel="noreferrer">
               HiBootstrap
               </a>

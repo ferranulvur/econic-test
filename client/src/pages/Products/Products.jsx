@@ -40,7 +40,7 @@ function Products() {
     formData.append("product_price", prod_price);
     formData.append("total_in_stock", prod_instock);
     formData.append("image_public_id", prod_image);
-    formData.append("upload_preset", "econix");
+    formData.append("upload_preset", "Northen Seeds");
 
     axios
       .post("/products/edit-product", formData, {

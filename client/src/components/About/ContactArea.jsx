@@ -124,7 +124,7 @@ function ContactArea() {
                 </li>
                 <li>
                   <i className="bx bx-envelope"></i> Email:{" "}
-                  <a href="mailto:hello@econix.com">hello@econix.com</a>
+                  <a href="mailto:hello@Northen Seeds.com">hello@Northen Seeds.com</a>
                 </li>
               </ul>
 

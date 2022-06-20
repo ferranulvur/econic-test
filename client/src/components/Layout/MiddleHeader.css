@@ -1,5 +1,5 @@
 .middle-header-area form .row .select-column .form-group select {
-  background-color: #15407f;
+  background-color: #124908;
   color: #fff;
   height: 50px;
 }
@@ -8,4 +8,11 @@
   background: #fff;
   color: #000000;
 }
-/*# sourceMappingURL=MiddleHeader.css.map */
+
+.middle-header-logo{
+  width: 90px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

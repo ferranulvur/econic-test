@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 
 import headphone from "../../../assets/img/main-slider/headphone.png";
 import monitor from "../../../assets/img/main-slider/monitor.png";
-import drone from "../../../assets/img/main-slider/drone.png";
+import drone from "../../../assets/img/main-slider/green1.png";
 
 const Banner = () => {
   return (

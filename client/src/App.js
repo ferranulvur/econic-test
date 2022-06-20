@@ -145,7 +145,7 @@ function App() {
         >
           <div className="app">
             <Toaster />
-            <TopHeader shippingMessage="Free shipping on all orders over $50" />
+            {/* <TopHeader shippingMessage="Free shipping on all orders over $50" /> */}
             <MiddleHeader />
             <Navbar />
             <Switch>

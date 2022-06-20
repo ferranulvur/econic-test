@@ -56,7 +56,7 @@ function ProductsArea({ products, history, editProduct, deleteProduct }) {
     const image = e.target.files[0];
     const formData = new FormData();
     formData.append("file", image);
-    formData.append("upload_preset", "econix");
+    formData.append("upload_preset", "Northen Seeds");
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data',

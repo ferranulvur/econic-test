@@ -565,10 +565,13 @@ function Navbar() {
 
               <div className="others-option d-flex align-items-center">
                 <div className="option-item  respo-nav">
-                  <span>
-                    Hotline:
-                    <a href="tel:16545676789">(+1) 654 567 – 6789</a>
-                  </span>
+                {!context.token && <Link to="/login">Login</Link>} Or{" "}
+                  {!context.token && <Link to="/register">Register</Link>}
+                  {context.token && (
+                    <button className="logout-btn" onClick={handleLogout}>
+                      Logout
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -579,7 +582,7 @@ function Navbar() {
       <div className="others-option-for-responsive">
         <div className="container">
           <div className="responsive-logo">
-            <span>Econix</span>
+            <span>Northen Seeds</span>
           </div>
           <div className="dot-menu" onClick={() => toggleHotline()}>
             <div className="inner">
