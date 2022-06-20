@@ -29,15 +29,15 @@ const Banner = () => {
               <div className="row align-items-center">
                 <div className="col-lg-6">
                   <div className="main-slider-content">
-                    <b>Northern Seeds</b>
+                    <h3 className="text-primary">Northern Seeds</h3>
                     <h2>Semillas de marihuana de calidad</h2>
-                    <p>
+                    <p className="text-dark">
                       Nuestras semillas han sido concepcionadas para que florezcan plantas de marihuana de calidad
                     </p>
 
                     <div className="slider-btn">
-                    <Link to="/shop" className="default-btn">
-                        <i className="flaticon-shopping-cart"></i>
+                    <Link to="/shop" className="btn btn-lg btn-primary">
+                        <i className="flaticon-shopping-cart mr-2"></i>
                         Shop Now
                         <span></span>
                       </Link>
