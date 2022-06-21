@@ -70,15 +70,20 @@ function Home() {
         <Preloader />
       ) : (
         <>
-          <Banner />
+          {/* <Banner /> */}
           <Overview />
-          <Support />
           <Shop
+              paddingClass="pt-100 pb-70"
+              products={products}
+              addToCart={addToCart}
+              showQuickView={showQuickView} />
+          {/* <Support /> */}
+          {/* <NewArrivals
             paddingClass="pt-100 pb-70"
             products={products}
             addToCart={addToCart}
             showQuickView={showQuickView}
-          />
+          /> */}
           {/* <SpecialOffer products={products} /> */}
           {/* <Collection /> */}
           {/* <BestSellers

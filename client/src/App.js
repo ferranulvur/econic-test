@@ -140,7 +140,7 @@ function App() {
           <div className="app">
             <Toaster />
             {/* <TopHeader shippingMessage="Free shipping on all orders over $50" /> */}
-            <MiddleHeader />
+            {/* <MiddleHeader /> */}
             <Navbar />
             <Switch>
               <Route path="/" exact component={Home} />

@@ -21,7 +21,7 @@ function Footer() {
                   </li>
                   <li>
                     <span>Email:</span>
-                    <a href="mailto:hello@Northen Seeds.com">hello@Northen Seeds.com</a>
+                    <a href="mailto:hello@Northern Seeds.com">hello@Northern Seeds.com</a>
                   </li>
                 </ul>
                 
@@ -141,7 +141,7 @@ function Footer() {
         <div className="container">
           <div className="copyright-area-content">
             <p>
-              Copyright @2022 Northen Seeds. All Rights Reserved by
+              Copyright @2022 Northern Seeds. All Rights Reserved by
               <a href="https://SafeLifeDEV.com/" target="_blank" rel="noreferrer">
               SafeLifeDEV
               </a>

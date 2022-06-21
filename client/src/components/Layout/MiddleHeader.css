@@ -10,9 +10,13 @@
 }
 
 .middle-header-logo{
-  width: 90px;
+  width: 64px;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+a{
+  color: white !important;
 }

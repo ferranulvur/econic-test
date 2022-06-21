@@ -5,8 +5,6 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import {Link} from 'react-router-dom';
 import "./Banner.css";
 
-import headphone from "../../../assets/img/main-slider/headphone.png";
-import monitor from "../../../assets/img/main-slider/monitor.png";
 import bannerImage from "../../../assets/img/logo.png";
 
 const Banner = () => {
@@ -82,7 +80,7 @@ const Banner = () => {
 
                 <div className="col-lg-6">
                   <div className="main-slider-image">
-                    <img src={headphone} alt="image" />
+                    <img src={bannerImage} alt="image" />
                   </div>
                 </div>
               </div>
@@ -117,7 +115,7 @@ const Banner = () => {
 
                 <div className="col-lg-6">
                   <div className="main-slider-image">
-                    <img src={monitor} alt="image" />
+                    <img src={bannerImage} alt="image" />
                   </div>
                 </div>
               </div>

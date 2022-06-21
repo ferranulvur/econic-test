@@ -2061,14 +2061,9 @@ h6:last-child {
     #ccdbec,
     #dce6f2
   );
-  background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url("./assets/img/main-slider/seeds-background.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 80vh;
 }
 .main-slider-item-box {
-  background-image: url(assets/img/main-slider/slider-bg-1.jpg);
+  background-image: url(assets/img/logo.png);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -2078,10 +2073,10 @@ h6:last-child {
   padding-right: 50px;
 }
 .main-slider-item-box.item-two {
-  background-image: url(assets/img/main-slider/slider-bg-2.jpg);
+  background-image: url(assets/img/logo.png);
 }
 .main-slider-item-box.item-three {
-  background-image: url(assets/img/main-slider/slider-bg-3.jpg);
+  background-image: url(assets/img/logo.png);
 }
 .main-slider-item-box .main-slider-content {
   max-width: 420px;
@@ -2105,7 +2100,7 @@ h6:last-child {
   margin-top: 30px;
 }
 .main-slider-item-others {
-  background-image: url(assets/img/main-slider/slider-bg-4.jpg);
+  background-image: url(assets/img/logo.png);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -2115,10 +2110,10 @@ h6:last-child {
   padding-right: 50px;
 }
 .main-slider-item-others.item-two {
-  background-image: url(assets/img/main-slider/slider-bg-5.jpg);
+  background-image: url(assets/img/logo.png);
 }
 .main-slider-item-others.item-three {
-  background-image: url(assets/img/main-slider/slider-bg-6.jpg);
+  background-image: url(assets/img/logo.png);
 }
 .main-slider-item-others .main-slider-content {
   max-width: 390px;

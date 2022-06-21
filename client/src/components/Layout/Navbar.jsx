@@ -1,56 +1,33 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useLocation, useHistory } from "react-router-dom";
-
+import CartContext from "../../contexts/cart-context";
 import AuthContext from "../../contexts/auth-context";
+import logo from "../../assets/img/logo.png";
+import "./Navbar.css";
 
-const homeRoutes = ["/", "/home-two", "/home-three", "/home-four"];
-const pagesRoutes = [
-  "/about",
-  "/our-team",
-  "/pricing-plans",
-  "/search",
-  "/contact",
-  "/faqs",
-  "/login",
-  "/register",
-  "/my-account",
-  "/error-404",
-  "/tracking-order",
-  "/compare",
-  "/terms-of-service",
-  "/privacy-policy",
-];
-const shopRoutes = [
-  "/shop",
-  "/shop-list-view",
-  "/shop-left-sidebar",
-  "/shop-right-sidebar",
-  "/shop-full-width",
-  "/cart",
-  "/wishlist",
-  "/checkout",
-  "/products-details",
-  "/products-details-sidebar",
-];
-const blogRoutes = [
-  "/blog",
-  "/blog-list-view",
-  "/blog-left-sidebar",
-  "/blog-right-sidebar",
-  "/blog-full-width",
-  "/blog-details",
-];
 const productsRoutes = ["/products", "/add-product"];
+
 
 function Navbar() {
   const [user, setUser] = useState({});
   const [visible, setVisible] = useState(false);
-  const { pathname } = useLocation();
   const context = useContext(AuthContext);
+  const cartContext = useContext(CartContext);
+  const Aucontext = useContext(AuthContext);
   const history = useHistory();
   const [active, setActive] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const [keyword, setKeyword] = useState("");
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if (keyword.trim()) {
+      history.push(`/shop/${keyword}`);
+    } else {
+      history.push("/");
+    }
+  };
 
   useEffect(() => {
     if (context && context.userId) {
@@ -97,8 +74,15 @@ function Navbar() {
   return (
     <div className={`navbar-area ${visible ? "is-sticky sticky-active" : ""}`}>
       <div className={showMenu ? "main-navbar show" : "main-navbar"}>
-        <div className="container">
+        <div className="mx-5 py-3 container-fluid">
           <nav className="navbar navbar-expand-md navbar-light">
+          <div className="col-1">
+            <div className="middle-header-logo">
+              <Link to="/">
+                <img src={logo} alt="image" href="/" />
+              </Link>
+            </div>
+          </div>
             <div className={"navbar-category"}>
               <div className="collapse navbar-collapse">
                 <ul className="navbar-nav">
@@ -155,360 +139,138 @@ function Navbar() {
                 </ul>
               </div>
             </div>
+            <div className="col-lg-6">
+              <div className="middle-header-search">
+                <form onSubmit={submitHandler}>
+                  <div className="row align-items-center">
 
-            <div className="collapse navbar-collapse mean-menu">
-              <ul className="navbar-nav responsive-menu">
-
-                <li className="nav-item megamenu">
-                  <NavLink
-                    to="/about"
-                    isActive={() => pagesRoutes.includes(pathname)}
-                    className="nav-link"
-                  >
-                    Pages <i className="bx bx-chevron-down chevron-display"></i>
-                    <span className="plus_icon">+</span>
-                  </NavLink>
-                  <ul className="dropdown-menu">
-                    <li className="nav-item">
-                      <div className="container">
-                        <div className="row">
-                          <div className="col">
-                            <ul className="megamenu-submenu">
-                              <li>
-                                <NavLink to={"/about"} className="nav-link">
-                                  About Us
-                                </NavLink>
-                              </li>
-
-                              <li>
-                                <NavLink to={"/search"} className="nav-link">
-                                  Search
-                                </NavLink>
-                              </li>
-
-                              <li>
-                                <NavLink to={"/contact"} className="nav-link">
-                                  Contact Us
-                                </NavLink>
-                              </li>
-                            </ul>
-                          </div>
-
-                          <div className="col">
-                            <ul className="megamenu-submenu">
-                              <li>
-                                <NavLink to={"/faqs"} className="nav-link">
-                                  FAQ's
-                                </NavLink>
-                              </li>
-                              {!context.token && (
-                                <div>
-                                  <li>
-                                    <NavLink to="/login" className="nav-link">
-                                      Login
-                                    </NavLink>
-                                  </li>
-
-                                  <li>
-                                    <NavLink
-                                      to="/register"
-                                      className="nav-link"
-                                    >
-                                      Register
-                                    </NavLink>
-                                  </li>
-                                </div>
-                              )}
-
-                              <li>
-                                <NavLink to="/my-account" className="nav-link">
-                                  My Account
-                                </NavLink>
-                              </li>
-
-                              <li>
-                                <NavLink to="/error-404" className="nav-link">
-                                  404 Error
-                                </NavLink>
-                              </li>
-                            </ul>
-                          </div>
-
-                          <div className="col">
-                            <ul className="megamenu-submenu">
-                              <li>
-                                <NavLink
-                                  to="/tracking-order"
-                                  className="nav-link"
-                                >
-                                  Tracking Order
-                                </NavLink>
-                              </li>
-
-                              <li>
-                                <NavLink to="/compare" className="nav-link">
-                                  Compare
-                                </NavLink>
-                              </li>
-
-                              <li>
-                                <NavLink
-                                  to="/terms-of-service"
-                                  className="nav-link"
-                                >
-                                  Terms Of Service
-                                </NavLink>
-                              </li>
-
-                              <li>
-                                <NavLink
-                                  to="/privacy-policy"
-                                  className="nav-link"
-                                >
-                                  Privacy Policy
-                                </NavLink>
-                              </li>
-
-                              <li>
-                                <NavLink to="/coming-soon" className="nav-link">
-                                  Coming Soon
-                                </NavLink>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
+                    <div className="col-md-12">
+                      <div className="search-box">
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Search product..."
+                          name="q"
+                          onChange={(e) => setKeyword(e.target.value)}
+                        />
+                        <button type="submit">
+                          <i className="bx bx-search"></i>
+                        </button>
                       </div>
-                    </li>
-                  </ul>
-                </li>
-
-                <li className="nav-item">
-                  <NavLink
-                    to="/shop"
-                    isActive={() => shopRoutes.includes(pathname)}
-                    className="nav-link"
-                  >
-                    Shop <i className="bx bx-chevron-down chevron-display"></i>
-                    <span className="plus_icon">+</span>
-                  </NavLink>
-                  <ul className="dropdown-menu">
-                    <li className="nav-item">
-                      <NavLink to="/shop" className="nav-link">
-                        Shop
-                      </NavLink>
-                    </li>
-
-                    <li className="nav-item">
-                      <NavLink to="/shop-list-view" className="nav-link">
-                        Shop List View
-                      </NavLink>
-                    </li>
-
-                    <li className="nav-item">
-                      <NavLink to="/shop-left-sidebar" className="nav-link">
-                        Shop Left Sidebar
-                      </NavLink>
-                    </li>
-
-                    <li className="nav-item">
-                      <NavLink to="/shop-right-sidebar" className="nav-link">
-                        Shop Right Sidebar
-                      </NavLink>
-                    </li>
-
-                    <li className="nav-item">
-                      <NavLink to="/shop-full-width" className="nav-link">
-                        Shop Full Width
-                      </NavLink>
-                    </li>
-
-                    <li className="nav-item">
-                      <NavLink to="/cart" className="nav-link">
-                        Cart
-                      </NavLink>
-                    </li>
-
-                    <li className="nav-item">
-                      <NavLink to="/wishlist" className="nav-link">
-                        Wishlist
-                      </NavLink>
-                    </li>
-
-                    <li className="nav-item">
-                      <NavLink to="/checkout" className="nav-link">
-                        Checkout
-                      </NavLink>
-                    </li>
-                  </ul>
-                </li>
-
-                <li className="nav-item">
-                  <NavLink
-                    to="/blog"
-                    isActive={() => blogRoutes.includes(pathname)}
-                    className="nav-link"
-                  >
-                    Blog <i className="bx bx-chevron-down chevron-display"></i>
-                    <span className="plus_icon">+</span>
-                  </NavLink>
-                  <ul className="dropdown-menu">
-                    <li className="nav-item">
-                      <NavLink to="/blog" className="nav-link">
-                        Blog
-                      </NavLink>
-                    </li>
-
-                    <li className="nav-item">
-                      <NavLink to="/blog-list-view" className="nav-link">
-                        Blog List View
-                      </NavLink>
-                    </li>
-
-                    <li className="nav-item">
-                      <NavLink to="/blog-left-sidebar" className="nav-link">
-                        Blog Left Sidebar
-                      </NavLink>
-                    </li>
-
-                    <li className="nav-item">
-                      <NavLink to="/blog-right-sidebar" className="nav-link">
-                        Blog Right Sidebar
-                      </NavLink>
-                    </li>
-
-                    <li className="nav-item">
-                      <NavLink to="/blog-full-width" className="nav-link">
-                        Blog Full Width
-                      </NavLink>
-                    </li>
-
-                    <li className="nav-item">
-                      <NavLink to="/blog-details" className="nav-link">
-                        Blog Details
-                      </NavLink>
-                    </li>
-                  </ul>
-                </li>
-
-                <li className="nav-item">
-                  <NavLink to="/contact" className="nav-link">
-                    Contact
-                  </NavLink>
-                </li>
-
-                {context.token && (
-                  <>
-                    {/* <li className="nav-item">
-                      <NavLink
-                        to="/products"
-                        isActive={() => productsRoutes.includes(pathname)}
-                        className="nav-link"
-                      >
-                        Products <i className="bx bx-chevron-down chevron-display"></i>
-                        <span className="plus_icon">+</span>
-                      </NavLink>
-                      <ul className="dropdown-menu">
-                        <li className="nav-item">
-                          <NavLink to="/products" className="nav-link">
-                            Products
-                          </NavLink>
-                        </li>
-                        <li className="nav-item">
-                          <NavLink to="/add-product" className="nav-link">
-                            Add Product
-                          </NavLink>
-                        </li>
-                      </ul>
-                    </li> */}
-                    <li className="nav-item">
-                      <NavLink
-                        to="/profile"
-                        // isActive={() => shopRoutes.includes(pathname)}
-                        className="nav-link"
-                      >
-                        {user && <i class="bx bxs-user"></i>}{" "}
-                        <i className="bx bx-chevron-down chevron-display"></i>
-                        <span className="plus_icon">+</span>
-                      </NavLink>
-                      <ul className="dropdown-menu">
-                        <li className="nav-item">
-                          <NavLink to="/profile" className="nav-link">
-                            {user && user.name}
-                          </NavLink>
-                        </li>
-                        <li className="nav-item">
-                          <NavLink to="/products" className="nav-link">
-                            Products
-                          </NavLink>
-                        </li>
-                        <li className="nav-item">
-                          <NavLink to="/add-product" className="nav-link">
-                            Add Product
-                          </NavLink>
-                        </li>
-
-                        <li className="nav-item">
-                          <NavLink to="/cart" className="nav-link">
-                            Cart
-                          </NavLink>
-                        </li>
-
-                        <li className="nav-item">
-                          <NavLink to="/order" className="nav-link">
-                            Order
-                          </NavLink>
-                        </li>
-
-                        <li className="nav-item">
-                          <NavLink to="/wishlist" className="nav-link">
-                            Wishlist
-                          </NavLink>
-                        </li>
-
-                        <hr />
-
-                        <li className="nav-item">
-                          <button
-                            onClick={handleLogout}
-                            className="btn btn-secondary nav-logout-btn"
-                          >
-                            Logout
-                          </button>
-                        </li>
-                        <li className="nav-item">
-                          <NavLink to="/reset" className="nav-link">
-                            Reset password
-                          </NavLink>
-                        </li>
-                      </ul>
-                    </li>
-                  </>
-                )}
-              </ul>
-
-              <div className="others-option d-flex align-items-center">
-                <div className="option-item  respo-nav">
-                  {!context.token && (
-                    <a className="login-btn btn btn-primary" href="/login">
-                      Login
-                    </a>
-                  )}
-                  {context.token && (
-                    <button className="logout-btn btn btn-primary" onClick={handleLogout}>
-                      Logout
-                    </button>
-                  )}
-                </div>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
-          </nav>
-        </div>
-      </div>
 
+            <div className="col-lg-3 d-flex justify-content-end align-items-end">
+              <div className="collapse navbar-collapse mean-menu">
+                <div className="others-option d-flex align-items-center">
+                  <div className="option-item  respo-nav">
+                    {!context.token && (
+                      <a className="login-btn btn btn-primary" href="/login">
+                        Login
+                      </a>
+                    )}
+                    {context.token && (
+                      <ul className="navbar-nav responsive-menu">
+                        <ul className="middle-header-optional mr-4">
+                          <li>
+                            <Link to="/cart">
+                              <i className="flaticon-shopping-cart"></i>
+                              {cartContext.cartItems && cartContext.cartItems.length > 0 && (
+                                <span className="text-light">{cartContext.cartItems.length}</span>
+                              )}
+                            </Link>
+                          </li>
+                          <li>
+                            $
+                            {cartContext.cartItems &&
+                              cartContext.cartItems.reduce((count, curItem) => {
+                                return (
+                                  count +
+                                  parseInt(curItem.price) * parseInt(curItem.quantity || 0)
+                                );
+                              }, 0)}
+                          </li>
+                        </ul>
+                        {/* User Menu */}
+                        {context.token && (
+                          <>
+                            <li className="nav-item">
+                              <NavLink
+                                to="/profile"
+                                // isActive={() => shopRoutes.includes(pathname)}
+                                className="rounded-circle btn-primary"
+                              >
+                                {user && <i class="bx bxs-user"></i>}{" "}
+                              </NavLink>
+                              <ul className="dropdown-menu">
+                                <li className="nav-item">
+                                  <NavLink to="/profile" className="nav-link dark-nav-item">
+                                    {user && user.name}
+                                  </NavLink>
+                                </li>
+                                <li className="nav-item">
+                                  <NavLink to="/products" className="nav-link dark-nav-item">
+                                    Products
+                                  </NavLink>
+                                </li>
+                                <li className="nav-item">
+                                  <NavLink to="/add-product" className="nav-link dark-nav-item">
+                                    Add Product
+                                  </NavLink>
+                                </li>
+                                <li className="nav-item">
+                                  <NavLink to="/cart" className="nav-link dark-nav-item">
+                                    Cart
+                                  </NavLink>
+                                </li>
+                                <li className="nav-item">
+                                  <NavLink to="/order" className="nav-link dark-nav-item">
+                                    Order
+                                  </NavLink>
+                                </li>
+                                <li className="nav-item">
+                                  <NavLink to="/wishlist" className="nav-link dark-nav-item">
+                                    Wishlist
+                                  </NavLink>
+                                </li>
+                                <hr />
+                                <li className="nav-item">
+                                  <button
+                                    onClick={handleLogout}
+                                    className="ml-3 btn btn-secondary"
+                                  >
+                                    Logout
+                                  </button>
+                                </li>
+                                <li className="nav-item">
+                                  <NavLink to="/reset" className="nav-link dark-nav-item">
+                                    Reset password
+                                  </NavLink>
+                                </li>
+                              </ul>
+                            </li>
+                          </>
+                        )}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+              </div>              
+            </div>
+
+        </nav>
+      </div>
+    </div>
+
+
+{/* Toggle */}
       <div className="others-option-for-responsive">
         <div className="container">
           <div className="responsive-logo">
-            <span>Northen Seeds</span>
+            <span>Northern Seeds</span>
           </div>
           <div className="dot-menu" onClick={() => toggleHotline()}>
             <div className="inner">

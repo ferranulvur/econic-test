@@ -1,0 +1,13 @@
+.overview-area{
+    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url("../../../assets/img/main-slider/seeds-background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 50vh;
+}
+
+/* body{
+    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url("../../../assets/img/main-slider/seeds-background.jpg");
+    background-size: auto 50%;
+    background-position: center;
+} */

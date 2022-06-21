@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { Image } from "cloudinary-react";
 import { Link } from "react-router-dom";
-import offerProducts7 from "../../assets/img/offer-products/offer-products-7.png";
-import largeOfferProducts from "../../assets/img/offer-products/large-offer-products.png";
+import offerProducts7 from "../../assets/img/aceite-cbd.png";
 
 function SpecialOffer({ paddingClass = "", products = [], addToCart, showQuickView }) {
   const [days, setDays] = useState("");
@@ -59,7 +58,7 @@ function SpecialOffer({ paddingClass = "", products = [], addToCart, showQuickVi
               <div className="single-offer-products">
                 <div className="offer-products-image">
                 <a>
-                  <img src={largeOfferProducts} alt="image" />
+                  <img src={offerProducts7} alt="image" />
                 </a>
                   <div className="tag">-50%</div>
                 </div>
