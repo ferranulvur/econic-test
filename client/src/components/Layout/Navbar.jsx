@@ -92,44 +92,44 @@ function Navbar() {
                       All Categories
                     </a>
                     <ul className="dropdown-menu">
-                      <li className="nav-item">
-                        <Link to="/shop/semillas_cannabis" className="nav-link">
+                      <li className="nav-item ">
+                        <Link to="/shop/semillas_cannabis" className="nav-link dark-nav-item">
                           Semillas Cannabis
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/shop/semillas_feminizadas" className="nav-link">
+                        <Link to="/shop/semillas_feminizadas" className="nav-link dark-nav-item">
                           Semillas Feminizadas
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/shop/semillas_autoflorecientes" className="nav-link">
+                        <Link to="/shop/semillas_autoflorecientes" className="nav-link dark-nav-item">
                           Semillas Autoflorecientes
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/shop/productos_cbd" className="nav-link">
+                        <Link to="/shop/productos_cbd" className="nav-link dark-nav-item">
                           Productos de CBD
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/shop/merchandising" className="nav-link">
+                        <Link to="/shop/merchandising" className="nav-link dark-nav-item">
                           Merchandising
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/shop/hemp_foods" className="nav-link">
+                        <Link to="/shop/hemp_foods" className="nav-link dark-nav-item">
                           Hemp Foods
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/shop/vaporizadores" className="nav-link">
+                        <Link to="/shop/vaporizadores" className="nav-link dark-nav-item">
                           Vaporizadores
                         </Link>
                       </li>
@@ -196,63 +196,66 @@ function Navbar() {
                         </ul>
                         {/* User Menu */}
                         {context.token && (
-                          <>
-                            <li className="nav-item">
-                              <NavLink
-                                to="/profile"
-                                // isActive={() => shopRoutes.includes(pathname)}
-                                className="rounded-circle btn-primary"
-                              >
-                                {user && <i class="bx bxs-user"></i>}{" "}
-                              </NavLink>
-                              <ul className="dropdown-menu">
-                                <li className="nav-item">
-                                  <NavLink to="/profile" className="nav-link dark-nav-item">
-                                    {user && user.name}
-                                  </NavLink>
-                                </li>
-                                <li className="nav-item">
-                                  <NavLink to="/products" className="nav-link dark-nav-item">
-                                    Products
-                                  </NavLink>
-                                </li>
-                                <li className="nav-item">
-                                  <NavLink to="/add-product" className="nav-link dark-nav-item">
-                                    Add Product
-                                  </NavLink>
-                                </li>
-                                <li className="nav-item">
-                                  <NavLink to="/cart" className="nav-link dark-nav-item">
-                                    Cart
-                                  </NavLink>
-                                </li>
-                                <li className="nav-item">
-                                  <NavLink to="/order" className="nav-link dark-nav-item">
-                                    Order
-                                  </NavLink>
-                                </li>
-                                <li className="nav-item">
-                                  <NavLink to="/wishlist" className="nav-link dark-nav-item">
-                                    Wishlist
-                                  </NavLink>
-                                </li>
-                                <hr />
-                                <li className="nav-item">
-                                  <button
-                                    onClick={handleLogout}
-                                    className="ml-3 btn btn-secondary"
-                                  >
-                                    Logout
-                                  </button>
-                                </li>
-                                <li className="nav-item">
-                                  <NavLink to="/reset" className="nav-link dark-nav-item">
-                                    Reset password
-                                  </NavLink>
-                                </li>
-                              </ul>
-                            </li>
-                          </>
+                          <div className="navbar-user">
+                            <ul className="navbar-nav">
+                              <li className="nav-item respo-nav">
+                                <NavLink
+                                  to=""
+                                  // isActive={() => shopRoutes.includes(pathname)}
+                                  className="rounded-circle btn-primary"
+                                >
+                                  {user && <i class="bx bxs-user"></i>}{" "}
+                                </NavLink>
+                                <ul className="dropdown-menu">
+                                  <li className="nav-item">
+                                    <NavLink to="/profile" className="nav-link dark-nav-item">
+                                      Profile
+                                    </NavLink>
+                                  </li>
+                                  <li className="nav-item">
+                                    <NavLink to="/products" className="nav-link dark-nav-item">
+                                      Products
+                                    </NavLink>
+                                  </li>
+                                  <li className="nav-item">
+                                    <NavLink to="/add-product" className="nav-link dark-nav-item">
+                                      Add Product
+                                    </NavLink>
+                                  </li>
+                                  <li className="nav-item">
+                                    <NavLink to="/cart" className="nav-link dark-nav-item">
+                                      Cart
+                                    </NavLink>
+                                  </li>
+                                  <li className="nav-item">
+                                    <NavLink to="/order" className="nav-link dark-nav-item">
+                                      Order
+                                    </NavLink>
+                                  </li>
+                                  <li className="nav-item">
+                                    <NavLink to="/wishlist" className="nav-link dark-nav-item">
+                                      Wishlist
+                                    </NavLink>
+                                  </li>
+                                  <li className="nav-item">
+                                    <NavLink to="/reset" className="nav-link dark-nav-item">
+                                      Reset password
+                                    </NavLink>
+                                  </li>
+                                  <hr />
+                                  <li className="nav-item">
+                                    <button
+                                      onClick={handleLogout}
+                                      className="ml-3 mb-3 btn btn-secondary "
+                                    >
+                                      Logout
+                                    </button>
+                                  </li>
+
+                                </ul>
+                              </li>
+                            </ul>
+                          </div>
                         )}
                       </ul>
                     )}

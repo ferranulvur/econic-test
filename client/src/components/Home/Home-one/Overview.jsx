@@ -5,8 +5,12 @@ import "./Overview.css";
 
 function Overview() {
   return (
-    <section className="overview-area pt-100 pb-20">
+    <section className="overview-area pt-5 pb-5">
       <div className="container">
+        <div className="row d-flex justify-content-center mb-5">
+          <h1 className="text-primary">Welcome to Northern Seeds</h1>
+          <h3 className="text-secondary">The very first place to look for premmium quality seeds</h3>
+        </div>
         <div className="row">
           <div className="col-lg-6 col-md-6">
             <div className="single-overview">

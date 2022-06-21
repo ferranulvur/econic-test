@@ -1,3 +1,47 @@
 .dark-nav-item{
     color: black !important;
+    background-color: white !important;
+}
+
+.dark-nav-item:before{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2px;
+    content: "";
+    height: 100%;
+    background-color: #406A3D;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+.dark-nav-item:hover{
+    background-color: #c5d3c3 !important;
+    
+}
+
+.dark-nav-item:hover:before{
+    opacity: 1;
+    visibility: visible;
+}
+
+.dropdown-menu{
+    padding: 0px !important;
+}
+
+.nav-link{
+    margin: 0px !important;
+}
+.middle-header-area form .row .select-column .form-group select {
+    background-color: #124908;
+    color: #fff;
+    height: 50px;
+  }
+  
+.middle-header-area form .row .select-column .form-group select option {
+    background: #fff;
+    color: #000000;
 }
