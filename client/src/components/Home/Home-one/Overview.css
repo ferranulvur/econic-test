@@ -6,6 +6,22 @@
     height: 60vh;
 }
 
+.overview-image{
+    max-height: 20vh !important;
+}
+
+.overview-image img{
+    max-height: 20vh !important;
+}
+
+.single-overview-item{
+    height: 30vh;
+}
+.single-overview{
+    height: 30vh;
+}
+
+
 /* body{
     background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url("../../../assets/img/main-slider/seeds-background.jpg");
     background-size: auto 50%;

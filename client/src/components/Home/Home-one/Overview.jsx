@@ -1,5 +1,5 @@
-import overview1 from "../../../assets/img/overview/overview1.png";
-import overview2 from "../../../assets/img/overview/overview2.png";
+import overview1 from "../../../assets/img/main-slider/purple-bud-autofloracion-xl.png";
+import overview2 from "../../../assets/img/main-slider/super-skunk-feminizada-xl.png";
 import {Link} from 'react-router-dom';
 import "./Overview.css";
 
@@ -41,7 +41,7 @@ function Overview() {
           </div>
 
           <div className="col-lg-6 col-md-6">
-            <div className="single-overview-item">
+            <div className="single-overview-item d-flex align-items-center">
               <div className="row align-items-center">
                 <div className="col-lg-8">
                   <div className="overview-content">
@@ -59,7 +59,7 @@ function Overview() {
 
                 <div className="col-lg-4">
                   <div className="overview-image">
-                    <img src={overview2} alt="image" />
+                    <img className="ml-5" src={overview1} alt="image" />
                   </div>
                 </div>
               </div>
