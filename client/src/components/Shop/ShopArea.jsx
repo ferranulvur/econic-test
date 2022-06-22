@@ -42,7 +42,21 @@ function ShopArea({ products = [], addToCart, page, pages, keyword,showQuickView
                         crop="scale"
                       />
                     </Link>
-                    <div className="tag">New</div>
+
+                    {
+                      //check if product.createdAt is in the last 7 days
+                      //if so, display the tag "new"
+                      //if not, don't display the tag
+                      //if product.createdAt is null, don't display the tag
+                      product.createdAt &&
+                      new Date(product.createdAt).getTime() >
+
+                      new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000).getTime()
+                      ? <div className="tag">New</div>
+                      : null
+                    
+                    }
+
                     <ul className="shop-action">
                       <li>
                         <span
@@ -93,7 +107,7 @@ function ShopArea({ products = [], addToCart, page, pages, keyword,showQuickView
                         <i className="bx bxs-star"></i>
                       </li>
                     </ul>
-                    <span>$150.00</span>
+                    <span>{parseFloat(product.price).toFixed(2)}€</span>
                   </div>
                 </div>
               </div>

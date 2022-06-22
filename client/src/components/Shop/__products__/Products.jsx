@@ -111,7 +111,7 @@ function Products({ products,showQuickView }) {
                         <i className="bx bxs-star"></i>
                       </li>
                     </ul>
-                    <span>$150.00</span>
+                    <span>{parseFloat(product.price).toFixed(2)}</span>
                   </div>
                 </div>
               </div>

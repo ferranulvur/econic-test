@@ -8,11 +8,20 @@ exports.fetchProducts = async (req, res) => {
   
     const keyword = req.query.keyword
       ? {
-          name: {
+        $or:[
+          {
+            "name": {
             $regex: req.query.keyword,
             $options: 'i',
+            }
           },
-        }
+          {
+            "type": {
+            $regex: req.query.keyword,
+            $options: 'i',
+            }
+          }
+      ]}
       : {}
   
     const count = await Product.countDocuments({ ...keyword })

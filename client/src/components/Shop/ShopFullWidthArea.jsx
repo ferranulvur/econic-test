@@ -90,7 +90,7 @@ function ShopFullWidthArea({ products = [], showQuickView }) {
                           <i className="bx bxs-star"></i>
                         </li>
                       </ul>
-                      <span>$150.00</span>
+                      <span>{product.price}</span>
                     </div>
                   </div>
                 </div>

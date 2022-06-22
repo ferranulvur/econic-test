@@ -81,7 +81,7 @@ function NewArrivals({
                           <i className="bx bxs-star"></i>
                         </li>
                       </ul>
-                      <span>${product.price}</span>
+                      <span>{parseFloat(product.price).toFixed(2)}€</span>
                     </div>
                   </div>
                 </div>

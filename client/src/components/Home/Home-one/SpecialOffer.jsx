@@ -36,8 +36,8 @@ function SpecialOffer({ products }) {
                         </Link>
                       </h3>
                       <div className="price">
-                        <span className="new-price">${product.price}</span>
-                        <span className="old-price">$500.00</span>
+                        <span className="new-price">{parseFloat(product.price).toFixed(2)}€</span>
+                        <span className="old-price">{(product.price*1.2).toFixed(2)}</span>
                       </div>
                       <ul className="rating">
                         <li>

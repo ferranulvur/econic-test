@@ -204,7 +204,7 @@ function Navbar() {
                                   // isActive={() => shopRoutes.includes(pathname)}
                                   className="rounded-circle btn-primary"
                                 >
-                                  {user && <i class="bx bxs-user"></i>}{" "}
+                                  {user && <i className="bx bxs-user"></i>}{" "}
                                 </NavLink>
                                 <ul className="dropdown-menu">
                                   <li className="nav-item">
