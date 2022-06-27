@@ -3,7 +3,7 @@ const { cloudinary } = require("../utils/cloudinary");
 
 exports.fetchProducts = async (req, res) => {
   try {
-    const pageSize = 12;
+    const pageSize = 100;
     const page = Number(req.query.pageNumber) || 1;
 
     const keyword = req.query.keyword
@@ -96,13 +96,13 @@ exports.deleteProduct = async (req, res) => {
 
 exports.editProduct = async (req, res) => {
   try {
-    const prodId = req.body.product_id;
-    const name = req.body.product_name;
-    const description = req.body.product_description;
-    const type = req.body.product_type;
-    const price = req.body.product_price;
-    const image_public_id = req.body.image_public_id;
-    const total_in_stock = req.body.total_in_stock;
+    const prodId = req.body.id;
+    const name = req.body.name;
+    const description = req.body.description;
+    const type = req.body.type;
+    const price = req.body.price;
+    const total_in_stock = req.body.inStock;
+    const image_public_id = req.body.image;
 
     await Product.updateOne(
       { _id: prodId },

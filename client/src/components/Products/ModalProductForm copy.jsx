@@ -22,7 +22,6 @@ function ModalProductForm(props) {
   const context = useContext(authContext);
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({});
-  const [addModalShow, setAddModalShow] = React.useState(false);
 
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.productReducer);
@@ -45,17 +44,6 @@ function ModalProductForm(props) {
     setType(data ? data.type : "");
     setInStock(data ? data.total_in_stock : "");
   };
-
-  useEffect(() => {
-    setName(props.data ? props.data.name : "");
-    setDescription(props.data ? props.data.description : "");
-    setProductImages(props.data ? props.data.images : "");
-    setPrice(props.data ? props.data.price : "");
-    setType(props.data ? props.data.type : "");
-    setInStock(props.data ? props.data.total_in_stock : "");
-  }, [props.data]);
-
-  console.log(name);
 
   const resetHandler = () => {
     setName("");
@@ -105,14 +93,26 @@ function ModalProductForm(props) {
     }
   };
 
-  const editProduct = (id, name, description, image, type, price, instock) => {
+  const editProduct = () => {
     const formData = new FormData();
     dispatch(
-      updateProductAction(id, name, description, type, price, instock, image)
+      updateProductAction(
+        props.data._id,
+        name,
+        description,
+        type,
+        price,
+        inStock,
+        image
+      )
     );
-    dispatch(listProducts());
     props.onHide();
+    dispatch(listProducts());
   };
+
+  useEffect(() => {
+    fetchData();
+  }, [props.data]);
 
   return (
     <Modal

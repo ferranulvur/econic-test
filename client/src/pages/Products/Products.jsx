@@ -5,18 +5,20 @@ import ProductsArea from "../../components/Products/ProductsArea";
 import axios from "axios";
 import Footer from "../../components/Footer/Footer";
 
+import { useDispatch, useSelector } from "react-redux";
+
+//actions
+import { listProducts } from "../../redux/Product/ProductAction";
+
 function Products() {
-  const [products, setProducts] = useState([]);
   const context = useContext(AuthContext);
 
+  const dispatch = useDispatch();
+  const { products } = useSelector((state) => state.productReducer);
+
   useEffect(() => {
-    axios
-      .get("/products/")
-      .then((res) => {
-        setProducts(res.data.products);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    dispatch(listProducts());
+  }, [dispatch]);
 
   const editProduct = (
     prod_id,
@@ -48,9 +50,7 @@ function Products() {
       })
       .then((res) => {
         if (res.data.message === "Product edited") {
-          return axios.get("/products/").then((res) => {
-            setProducts(res.data.products);
-          });
+          dispatch(listProducts());
         }
       })
       .catch((err) => console.log(err));
@@ -63,7 +63,7 @@ function Products() {
       })
       .then((res) => {
         if (res.data.message === "Successfully Deleted") {
-          setProducts(res.data.products);
+          dispatch(listProducts());
         }
       })
       .catch((err) => console.log(err));
