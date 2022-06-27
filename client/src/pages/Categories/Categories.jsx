@@ -18,11 +18,7 @@ function Categories() {
       .catch((err) => console.log(err));
   }, []);
 
-  const editCategory = (
-    prod_id,
-    prod_name,
-    prod_description,
-  ) => {
+  const editCategory = (prod_id, prod_name, prod_description) => {
     const formData = new FormData();
     formData.append("category_id", prod_id);
     formData.append("category_name", prod_name);

@@ -3,53 +3,50 @@ const Product = require("../models/Product");
 
 exports.fetchCategories = async (req, res) => {
   try {
-    const pageSize = 12
-    const page = Number(req.query.pageNumber) || 1
-  
-    const keyword = {}
-  
-    const count = await Category.countDocuments({ ...keyword })
+    const pageSize = 12;
+    const page = Number(req.query.pageNumber) || 1;
+
+    const keyword = {};
+
+    const count = await Category.countDocuments({ ...keyword });
     const _categories = await Category.find({ ...keyword })
       .limit(pageSize)
-      .skip(pageSize * (page - 1))
+      .skip(pageSize * (page - 1));
 
     let ctr = 0;
     let categories = [];
     _categories.forEach(async (category) => {
       const _keyword = category.slug
-      ? {
-            "type": {
-            $regex: category.slug,
-            $options: 'i',
-            }
-     
-      }
-      : {}
+        ? {
+            type: {
+              $regex: category.slug,
+              $options: "i",
+            },
+          }
+        : {};
 
       let newCategory = {
-        "_id": category._id,
-        "name": category.name,
-        "slug": category.slug,
-        "count": await Product.countDocuments({ ..._keyword }),
-      }
-  
-      console.log(newCategory)
-      categories.push(newCategory)
+        _id: category._id,
+        name: category.name,
+        slug: category.slug,
+        count: await Product.countDocuments({ ..._keyword }),
+      };
+
+      console.log(newCategory);
+      categories.push(newCategory);
       ctr++;
 
       if (ctr === _categories.length) {
-        console.log(categories)
-        res.json({ categories, page, pages: Math.ceil(count / pageSize) })    
+        console.log(categories);
+        res.json({ categories, page, pages: Math.ceil(count / pageSize) });
       }
-
-    })
+    });
   } catch (err) {
     res.status(500);
   }
 };
 
 exports.addCategory = async (req, res) => {
-
   try {
     const name = req.body.category_name;
     const slug = req.body.category_slug;
@@ -85,18 +82,16 @@ exports.fetchCategory = async (req, res) => {
 
 exports.fetchCategoryStock = async (req, res) => {
   try {
-    
     const keyword = req.query.keyword
-    ? {
-          "type": {
-          $regex: req.query.keyword,
-          $options: 'i',
-          }
-   
-    }
-    : {}
+      ? {
+          type: {
+            $regex: req.query.keyword,
+            $options: "i",
+          },
+        }
+      : {};
 
-    const count = await Product.countDocuments({ ...keyword })
+    const count = await Product.countDocuments({ ...keyword });
 
     res.status(200).json({
       count,
@@ -113,15 +108,15 @@ exports.deleteCategory = async (req, res) => {
     await Category.deleteOne({ _id: categoryId });
     const categories = await Category.find({});
 
-    return res.status(200).json({ message: "Successfully Deleted", categories });
+    return res
+      .status(200)
+      .json({ message: "Successfully Deleted", categories });
   } catch (err) {
     res.status(500);
   }
 };
 
-
 exports.editCategory = async (req, res) => {
- 
   try {
     const catId = req.body.category_id;
     const name = req.body.category_name;
@@ -138,9 +133,8 @@ exports.editCategory = async (req, res) => {
     );
     res.status(200).json({
       message: "Category edited",
-    })
-
-  } catch(err) {
+    });
+  } catch (err) {
     res.status(500);
   }
-}
+};
