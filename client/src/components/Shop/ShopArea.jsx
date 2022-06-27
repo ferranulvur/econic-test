@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
 import { Image } from "cloudinary-react";
-import React from 'react';
+import React from "react";
 
-function ShopArea({ products = [], addToCart, page, pages, keyword,showQuickView }) {
-  const [current, setCurrent] =React.useState(page);
+function ShopArea({
+  products = [],
+  addToCart,
+  page,
+  pages,
+  keyword,
+  showQuickView,
+}) {
+  const [current, setCurrent] = React.useState(page);
   return (
     <section className="shop-area bg-ffffff pt-50 pb-50">
       <div className="container">
@@ -50,11 +57,11 @@ function ShopArea({ products = [], addToCart, page, pages, keyword,showQuickView
                       //if product.createdAt is null, don't display the tag
                       product.createdAt &&
                       new Date(product.createdAt).getTime() >
-
-                      new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000).getTime()
-                      ? <div className="tag">New</div>
-                      : null
-                    
+                        new Date(
+                          new Date().getTime() - 7 * 24 * 60 * 60 * 1000
+                        ).getTime() ? (
+                        <div className="tag">New</div>
+                      ) : null
                     }
 
                     <ul className="shop-action">
@@ -115,8 +122,7 @@ function ShopArea({ products = [], addToCart, page, pages, keyword,showQuickView
 
           <div className="col-lg-12 col-md-12">
             <div className="pagination-area">
-              <Link to={`/page/${page - 1}`
-                } className="prev page-numbers">
+              <Link to={`/page/${page - 1}`} className="prev page-numbers">
                 <i className="flaticon-left-arrow"></i>
               </Link>
 
@@ -129,16 +135,18 @@ function ShopArea({ products = [], addToCart, page, pages, keyword,showQuickView
                         : `/page/${x + 1}`
                     }
                   >
-                    <span className={ x+1 === page ? 'current page-numbers' : 'page-numbers'}>{x + 1}</span>
+                    <span
+                      className={
+                        x + 1 === page ? "current page-numbers" : "page-numbers"
+                      }
+                    >
+                      {x + 1}
+                    </span>
                   </Link>
                 </div>
               ))}
 
-              <Link
-                to={`/page/${page + 1}`
-                }
-                className="next page-numbers"
-              >
+              <Link to={`/page/${page + 1}`} className="next page-numbers">
                 <i className="flaticon-right-arrow"></i>
               </Link>
             </div>
