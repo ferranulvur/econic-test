@@ -8,6 +8,7 @@ const db = require("./config/db");
 const productRoutes = require("./routings/product");
 const userRoutes = require("./routings/user");
 const orderRoutes = require("./routings/order");
+const categoryRoutes = require("./routings/category");
 
 const production = process.env.NODE_ENV === "production";
 
@@ -32,6 +33,7 @@ db.makeDb();
 app.use("/products", productRoutes);
 app.use("/user", userRoutes);
 app.use("/order", orderRoutes);
+app.use("/categories", categoryRoutes);
 
 production && (
   app.get("/*", (req, res) => {
