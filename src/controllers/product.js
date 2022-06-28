@@ -38,11 +38,11 @@ exports.fetchProducts = async (req, res) => {
 
 exports.addProduct = async (req, res) => {
   try {
-    const name = req.body.product_name;
-    const description = req.body.product_description;
+    const name = req.body.name;
+    const description = req.body.description;
     const type = req.body.product_type;
-    const price = req.body.product_price;
-    const total_in_stock = req.body.total_in_stock;
+    const price = req.body.price;
+    const total_in_stock = req.body.inStock;
     const image_public_id = req.body.image_public_id;
     const file = req.files.file;
 
@@ -83,8 +83,8 @@ exports.fetchProduct = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
   try {
-    const productId = req.body.productId;
-
+    const productId = req.body.id;
+    console.log(productId);
     await Product.deleteOne({ _id: productId });
     const products = await Product.find({});
 

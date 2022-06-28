@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { withRouter } from "react-router-dom";
 import { Image } from "cloudinary-react";
 import axios from "axios";
@@ -6,22 +8,27 @@ import authContext from "../../contexts/auth-context";
 import DataTable from "react-data-table-component";
 import { Button } from "react-bootstrap";
 import ModalProductForm from "./ModalProductForm";
+import Swal from "sweetalert2";
+import { dispatch } from "react-hot-toast";
 
-function ProductsArea({ products, history, editProduct, deleteProduct }) {
+import {
+  listProducts,
+  listProduct,
+  updateProductAction,
+  deleteProductAction,
+  individualProductReducer,
+} from "../../redux/Product/ProductAction";
+
+function ProductsArea({ history }) {
   const [role, setRole] = useState("user");
-  const [product, setProduct] = useState({
-    name: "",
-    description: "",
-    image: "",
-    type: "",
-    price: "",
-    inStock: "",
-  });
   const [imagePublicId, setImagePublicId] = useState(null);
-  const [product_images, setProductImages] = useState("");
   const context = useContext(authContext);
   const [addModalShow, setAddModalShow] = React.useState(false);
   const [editModalShow, setEditModalShow] = React.useState(false);
+
+  const dispatch = useDispatch();
+  const { products } = useSelector((state) => state.productReducer);
+  const { product } = useSelector((state) => state.individualProductReducer);
 
   useEffect(() => {
     axios
@@ -37,34 +44,28 @@ function ProductsArea({ products, history, editProduct, deleteProduct }) {
   };
 
   const openDeleteModal = (product, imagePublicId) => {
-    setProduct(product);
+    dispatch(listProduct(product._id));
     setImagePublicId(imagePublicId);
+    Swal.fire({
+      title: "Delete Product!",
+      text: `Are you sure you want to delete ${product.name} product?`,
+      icon: "warning",
+      confirmButtonText: "Yes, delete it!",
+      showCancelButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log(product._id);
+        dispatch(deleteProductAction(product._id));
+        dispatch(listProducts());
+        Swal.fire("Deleted!", "", "success");
+      } else if (result.isDenied) {
+      }
+    });
   };
 
-  const openEditModal = (product, imagePublicId) => {
-    setProduct(product);
-    console.log(product);
+  const openEditModal = (product) => {
+    dispatch(listProduct(product._id));
     setEditModalShow(true);
-  };
-
-  const handleChange = async (e) => {
-    const image = e.target.files[0];
-    const formData = new FormData();
-    formData.append("file", image);
-    formData.append("upload_preset", "Northern Seeds");
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    };
-
-    const { data } = await axios.post(
-      "https://api.cloudinary.com/v1_1/dev-empty/image/upload",
-      formData,
-      config
-    );
-
-    setProductImages(data.public_id);
   };
 
   const columns = [

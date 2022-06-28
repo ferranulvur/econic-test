@@ -8,6 +8,7 @@ import "./assets/css/responsive.min.css";
 import { Provider } from "react-redux";
 import store from "./redux/Store";
 import App from "./App";
+import Swal from "sweetalert2";
 
 ReactDOM.render(
   <Provider store={store}>

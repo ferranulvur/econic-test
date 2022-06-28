@@ -4,10 +4,15 @@ import axios from "axios";
 import authContext from "../../contexts/auth-context";
 import { Modal, Button, Form } from "react-bootstrap";
 import validate from "./validateinfo";
+import Swal from "sweetalert2";
 
 import {
   listProducts,
   updateProductAction,
+  deleteProductAction,
+  addProductAction,
+  listProduct,
+  cleanProduct,
 } from "../../redux/Product/ProductAction";
 
 function ModalProductForm(props) {
@@ -20,33 +25,14 @@ function ModalProductForm(props) {
   const [inStock, setInStock] = useState("");
   const [product_images, setProductImages] = useState("");
   const context = useContext(authContext);
-  const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({});
-  const [addModalShow, setAddModalShow] = React.useState(false);
 
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.productReducer);
-
-  const fetchData = async () => {
-    const { data } = await axios.get(
-      `/products/fetch-product/${props.data._id}`,
-      {
-        headers: {
-          //Authorization: `Bearer ${userInfo.user.token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    setName(data ? data.name : "");
-    setDescription(data ? data.description : "");
-    setProductImages(data ? data.images : "");
-    setPrice(data ? data.price : "");
-    setType(data ? data.type : "");
-    setInStock(data ? data.total_in_stock : "");
-  };
+  const { product } = useSelector((state) => state.individualProductReducer);
+  console.log(product);
 
   useEffect(() => {
+    console.log(props.data);
     setName(props.data ? props.data.name : "");
     setDescription(props.data ? props.data.description : "");
     setProductImages(props.data ? props.data.images : "");
@@ -55,9 +41,7 @@ function ModalProductForm(props) {
     setInStock(props.data ? props.data.total_in_stock : "");
   }, [props.data]);
 
-  console.log(name);
-
-  const resetHandler = () => {
+  const closeHandler = () => {
     setName("");
     setDescription("");
     setType("");
@@ -65,53 +49,75 @@ function ModalProductForm(props) {
     setPrice("");
     setInStock("");
     setErrors("");
-  };
 
-  const axiosHeaders = {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
+    props.onHide();
+    dispatch(listProducts());
   };
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("product_name", name);
-    formData.append("product_description", description);
-    formData.append("file", product_images);
-    formData.append("product_type", type);
-    formData.append("product_price", price);
-    formData.append("total_in_stock", inStock);
-    formData.append("upload_preset", "vikings");
-    setErrors(validate(formData));
-
-    const cloudinaryData = await axios.post(
-      "https://api.cloudinary.com/v1_1/dev-empty/image/upload",
-      formData
-    );
-    if (cloudinaryData.statusText === "OK") {
-      let image_public_id = cloudinaryData.data.public_id;
-      formData.append("image_public_id", image_public_id);
-      const { data } = await axios
-        .post("/products/add-product", formData, axiosHeaders)
-        .then((res) => {
-          if (res.data.message === "Product added") {
-            setMessage(name + " added");
-            resetHandler();
-            props.onHide();
-            dispatch(listProducts());
-          }
-        });
-    }
+    Swal.fire({
+      title: "Creating Product",
+      text: "Are you sure you want to create this product?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, create it!",
+    }).then((result) => {
+      if (result.value) {
+        dispatch(
+          addProductAction(
+            name,
+            description,
+            type,
+            price,
+            inStock,
+            product_images
+          )
+        );
+        closeHandler();
+        Swal.fire("Created!", "Your product has been created.", "success");
+      }
+    });
   };
 
-  const editProduct = (id, name, description, image, type, price, instock) => {
-    const formData = new FormData();
-    dispatch(
-      updateProductAction(id, name, description, type, price, instock, image)
-    );
-    dispatch(listProducts());
-    props.onHide();
+  const editProduct = async (
+    e,
+    id,
+    name,
+    description,
+    image,
+    type,
+    price,
+    instock
+  ) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "Updating Product",
+      text: "Are you sure you want to update this product?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, update it!",
+    }).then((result) => {
+      if (result.value) {
+        dispatch(
+          updateProductAction(
+            id,
+            name,
+            description,
+            type,
+            price,
+            instock,
+            image
+          )
+        );
+        closeHandler();
+        Swal.fire("Updated!", "Your product has been updated.", "success");
+      }
+    });
   };
 
   return (
@@ -182,6 +188,8 @@ function ModalProductForm(props) {
           <Form.Group controlId="formProductImage">
             <Form.Label>Product Image</Form.Label>
             <Form.File
+              accept="image/*"
+              //value={product_images}
               id="formProductImage"
               placeholder="Enter Product Image"
               onInput={(e) => {
@@ -200,8 +208,9 @@ function ModalProductForm(props) {
         ) : (
           <Button
             variant="primary"
-            onClick={() =>
+            onClick={(e) =>
               editProduct(
+                e,
                 props.data._id,
                 name,
                 description,

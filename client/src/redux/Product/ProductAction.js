@@ -6,6 +6,15 @@ import {
   PRODUCT_UPDATE_FAILURE,
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_SUCCESS,
+  PRODUCT_DELETE_FAILURE,
+  PRODUCT_DELETE_REQUEST,
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_ADD_FAILURE,
+  PRODUCT_ADD_REQUEST,
+  PRODUCT_ADD_SUCCESS,
+  INDIVIDUAL_PRODUCT_LIST,
+  INDIVIDUAL_PRODUCT_ERROR,
+  INDIVIDUAL_PRODUCT_CLEAN,
 } from "./ProductTypes";
 
 export const listProducts =
@@ -31,6 +40,48 @@ export const listProducts =
     }
   };
 
+export const listProduct = (id) => async (dispatch) => {
+  try {
+    const { data } = await axios.get(`/products/fetch-product/${id}`, {
+      headers: {
+        //Authorization: `Bearer ${userInfo.user.token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log(data);
+    dispatch({
+      type: INDIVIDUAL_PRODUCT_LIST,
+      payload: data.product,
+    });
+  } catch (error) {
+    dispatch({
+      type: INDIVIDUAL_PRODUCT_ERROR,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const cleanProduct = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: INDIVIDUAL_PRODUCT_CLEAN,
+      payload: {},
+    });
+  } catch (error) {
+    dispatch({
+      type: INDIVIDUAL_PRODUCT_ERROR,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
 export const updateProductAction =
   (id, name, description, type, price, inStock, image) => async (dispatch) => {
     try {
@@ -54,6 +105,84 @@ export const updateProductAction =
     } catch (err) {
       dispatch({
         type: PRODUCT_UPDATE_FAILURE,
+        payload:
+          err.response && err.response.data.message
+            ? err.response.data.message
+            : err.message,
+      });
+    }
+  };
+
+export const deleteProductAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_DELETE_REQUEST });
+    //const { userLogin: {userInfo} } = getState();
+
+    const config = {
+      headers: {
+        //'Authorization': `Bearer ${userInfo.user.token}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    const { data } = await axios.post(
+      `/products/delete-product`,
+      { id },
+      config
+    );
+
+    dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data });
+  } catch (err) {
+    dispatch({
+      type: PRODUCT_DELETE_FAILURE,
+      payload:
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message,
+    });
+  }
+};
+
+export const addProductAction =
+  (name, description, type, price, inStock, image) => async (dispatch) => {
+    try {
+      dispatch({ type: PRODUCT_ADD_REQUEST });
+      //const { userLogin: {userInfo} } = getState();
+
+      const config = {
+        headers: {
+          //'Authorization': `Bearer ${userInfo.user.token}`,
+          "Content-Type": "application/json",
+        },
+      };
+
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("product_type", type);
+      formData.append("price", price);
+      formData.append("inStock", inStock);
+      formData.append("file", image);
+      formData.append("upload_preset", "vikings");
+
+      const cloudinaryData = await axios.post(
+        "https://api.cloudinary.com/v1_1/dev-empty/image/upload",
+        formData,
+        config
+      );
+
+      formData.append("image_public_id", cloudinaryData.data.public_id);
+
+      const { data } = await axios.post(
+        `/products/add-product`,
+        formData,
+        config
+      );
+
+      dispatch({ type: PRODUCT_ADD_SUCCESS, payload: data });
+    } catch (err) {
+      dispatch({
+        type: PRODUCT_ADD_FAILURE,
         payload:
           err.response && err.response.data.message
             ? err.response.data.message
