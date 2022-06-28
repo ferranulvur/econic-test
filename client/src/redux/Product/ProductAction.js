@@ -83,7 +83,8 @@ export const cleanProduct = () => async (dispatch) => {
 };
 
 export const updateProductAction =
-  (id, name, description, type, price, inStock, image) => async (dispatch) => {
+  (id, name, description, category, price, inStock, publicImage) =>
+  async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_UPDATE_REQUEST });
       //const { userLogin: {userInfo} } = getState();
@@ -97,7 +98,15 @@ export const updateProductAction =
 
       const { data } = await axios.post(
         `/products/edit-product`,
-        { id, name, description, type, price, inStock, image },
+        {
+          id,
+          name,
+          description,
+          category,
+          price,
+          inStock,
+          publicImage,
+        },
         config
       );
 
@@ -144,7 +153,7 @@ export const deleteProductAction = (id) => async (dispatch) => {
 };
 
 export const addProductAction =
-  (name, description, type, price, inStock, image) => async (dispatch) => {
+  (name, description, category, price, inStock, image) => async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_ADD_REQUEST });
       //const { userLogin: {userInfo} } = getState();
@@ -157,22 +166,29 @@ export const addProductAction =
       };
 
       const formData = new FormData();
+
+      /* Collection formData Fields */
       formData.append("name", name);
       formData.append("description", description);
-      formData.append("product_type", type);
+      formData.append("category", category);
       formData.append("price", price);
       formData.append("inStock", inStock);
       formData.append("file", image);
+
+      /* Cloudinary formData Fields */
       formData.append("upload_preset", "vikings");
 
+      /* Cloudinary Post */
       const cloudinaryData = await axios.post(
         "https://api.cloudinary.com/v1_1/dev-empty/image/upload",
         formData,
         config
       );
 
-      formData.append("image_public_id", cloudinaryData.data.public_id);
+      /* Cloudinary formData Fields */
+      formData.append("publicImage", cloudinaryData.data.public_id);
 
+      /* add-product POST Request */
       const { data } = await axios.post(
         `/products/add-product`,
         formData,

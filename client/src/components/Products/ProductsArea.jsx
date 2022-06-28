@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { withRouter } from "react-router-dom";
-import { Image } from "cloudinary-react";
 import axios from "axios";
 import authContext from "../../contexts/auth-context";
-import DataTable from "react-data-table-component";
-import { Button } from "react-bootstrap";
-import ModalProductForm from "./ModalProductForm";
-import Swal from "sweetalert2";
-import { dispatch } from "react-hot-toast";
 
+/* Components */
+import { Button } from "react-bootstrap";
+import { Image } from "cloudinary-react";
+import DataTable from "react-data-table-component";
+import Swal from "sweetalert2";
+import ModalProductForm from "./ModalProductForm";
+
+/* Redux Actions */
 import {
   listProducts,
   listProduct,
@@ -20,16 +21,20 @@ import {
 } from "../../redux/Product/ProductAction";
 
 function ProductsArea({ history }) {
-  const [role, setRole] = useState("user");
-  const [imagePublicId, setImagePublicId] = useState(null);
+  /* Auth */
   const context = useContext(authContext);
+
+  /* useState Definitions */
+  const [role, setRole] = useState("user");
   const [addModalShow, setAddModalShow] = React.useState(false);
   const [editModalShow, setEditModalShow] = React.useState(false);
 
+  /* Redux */
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.productReducer);
   const { product } = useSelector((state) => state.individualProductReducer);
 
+  /* Use Effect */
   useEffect(() => {
     axios
       .post("/user/check-role", {
@@ -39,13 +44,16 @@ function ProductsArea({ history }) {
       .catch((err) => console.log(err));
   }, []);
 
+  /* Helper Functions */
+  /* Details */
   const goToDetails = (id) => {
     history.push(`/products-details/${id}`);
   };
 
-  const openDeleteModal = (product, imagePublicId) => {
+  /* Modal Functions */
+  /* Delete */
+  const openDeleteModal = (product) => {
     dispatch(listProduct(product._id));
-    setImagePublicId(imagePublicId);
     Swal.fire({
       title: "Delete Product!",
       text: `Are you sure you want to delete ${product.name} product?`,
@@ -63,11 +71,13 @@ function ProductsArea({ history }) {
     });
   };
 
+  /* Edit */
   const openEditModal = (product) => {
     dispatch(listProduct(product._id));
     setEditModalShow(true);
   };
 
+  /* Datatable Columns Definition */
   const columns = [
     {
       name: "Image",
@@ -76,7 +86,7 @@ function ProductsArea({ history }) {
       cell: (row) => (
         <Image
           cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
-          publicId={row.image_public_id}
+          publicId={row.publicImage}
           width="64"
           crop="scale"
         />
@@ -93,8 +103,8 @@ function ProductsArea({ history }) {
       sortable: true,
     },
     {
-      name: "Type",
-      selector: (row) => row.type,
+      name: "Category",
+      selector: (row) => row.category,
       sortable: true,
     },
     {
@@ -104,7 +114,7 @@ function ProductsArea({ history }) {
     },
     {
       name: "In Stock",
-      selector: (row) => row.total_in_stock,
+      selector: (row) => row.inStock,
       sortable: true,
     },
     {
@@ -112,13 +122,13 @@ function ProductsArea({ history }) {
       cell: (row) => (
         <div>
           <Button
-            onClick={() => openEditModal(row, row.image_public_id)}
+            onClick={() => openEditModal(row)}
             variant="primary btn-sm mr-2"
           >
             Edit
           </Button>
           <Button
-            onClick={() => openDeleteModal(row, row.image_public_id)}
+            onClick={() => openDeleteModal(row)}
             variant="danger btn-sm mr-2"
           >
             Delete

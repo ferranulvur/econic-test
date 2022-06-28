@@ -19,11 +19,11 @@ function ModalProductForm(props) {
   console.log(props);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState(null);
-  const [type, setType] = useState("");
+  const [images, setImages] = useState([]);
+  const [publicImage, setPublicImage] = useState("");
+  const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [inStock, setInStock] = useState("");
-  const [product_images, setProductImages] = useState("");
   const context = useContext(authContext);
   const [errors, setErrors] = useState({});
 
@@ -35,17 +35,19 @@ function ModalProductForm(props) {
     console.log(props.data);
     setName(props.data ? props.data.name : "");
     setDescription(props.data ? props.data.description : "");
-    setProductImages(props.data ? props.data.images : "");
+    setImages(props.data ? props.data.images : "");
+    setPublicImage(props.data ? props.data.publicImage : "");
     setPrice(props.data ? props.data.price : "");
-    setType(props.data ? props.data.type : "");
-    setInStock(props.data ? props.data.total_in_stock : "");
+    setCategory(props.data ? props.data.category : "");
+    setInStock(props.data ? props.data.inStock : "");
   }, [props.data]);
 
   const closeHandler = () => {
     setName("");
     setDescription("");
-    setType("");
-    setImage("");
+    setCategory("");
+    setImages("");
+    setPublicImage("");
     setPrice("");
     setInStock("");
     setErrors("");
@@ -70,13 +72,15 @@ function ModalProductForm(props) {
           addProductAction(
             name,
             description,
-            type,
+            category,
             price,
             inStock,
-            product_images
+            images,
+            publicImage
           )
         );
         closeHandler();
+        dispatch(listProducts());
         Swal.fire("Created!", "Your product has been created.", "success");
       }
     });
@@ -87,10 +91,10 @@ function ModalProductForm(props) {
     id,
     name,
     description,
-    image,
-    type,
+    category,
     price,
-    instock
+    inStock,
+    publicImage
   ) => {
     e.preventDefault();
     Swal.fire({
@@ -108,10 +112,10 @@ function ModalProductForm(props) {
             id,
             name,
             description,
-            type,
+            category,
             price,
-            instock,
-            image
+            inStock,
+            publicImage
           )
         );
         closeHandler();
@@ -163,8 +167,8 @@ function ModalProductForm(props) {
             <Form.Control
               type="text"
               placeholder="Enter Product Type"
-              value={type}
-              onChange={(e) => setType(e.target.value)}
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
             />
           </Form.Group>
           <Form.Group controlId="formProductPrice">
@@ -189,12 +193,11 @@ function ModalProductForm(props) {
             <Form.Label>Product Image</Form.Label>
             <Form.File
               accept="image/*"
-              //value={product_images}
               id="formProductImage"
               placeholder="Enter Product Image"
               onInput={(e) => {
                 console.log(e.target.files[0]);
-                setProductImages(e.target.files[0]);
+                setImages(e.target.files[0]);
               }}
             />
           </Form.Group>
@@ -214,10 +217,10 @@ function ModalProductForm(props) {
                 props.data._id,
                 name,
                 description,
-                product_images,
-                type,
+                category,
                 price,
-                inStock
+                inStock,
+                publicImage
               )
             }
           >

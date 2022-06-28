@@ -1,29 +1,30 @@
 const Product = require("../models/Product");
 const { cloudinary } = require("../utils/cloudinary");
 
+/* READ ALL PRODUCTS */
 exports.fetchProducts = async (req, res) => {
   try {
     const pageSize = 100;
     const page = Number(req.query.pageNumber) || 1;
 
-    const keyword = req.query.keyword
-      ? {
-          $or: [
-            {
-              name: {
-                $regex: req.query.keyword,
-                $options: "i",
-              },
-            },
-            {
-              type: {
-                $regex: req.query.keyword,
-                $options: "i",
-              },
-            },
-          ],
-        }
-      : {};
+    const or_data = {
+      $or: [
+        {
+          name: {
+            $regex: req.query.keyword,
+            $options: "i",
+          },
+        },
+        {
+          category: {
+            $regex: req.query.keyword,
+            $options: "i",
+          },
+        },
+      ],
+    };
+
+    const keyword = req.query.keyword ? or_data : {};
 
     const count = await Product.countDocuments({ ...keyword });
     const products = await Product.find({ ...keyword })
@@ -32,95 +33,100 @@ exports.fetchProducts = async (req, res) => {
 
     res.json({ products, page, pages: Math.ceil(count / pageSize) });
   } catch (err) {
-    res.status(500);
+    res.status(500).json({ message: "Error fetching products", err });
   }
 };
 
+/* READ ONE PRODUCT */
+exports.fetchProduct = async (req, res) => {
+  try {
+    const id = req.params.productId;
+    const product = await Product.findById({ _id: id });
+
+    res.status(200).json({ product });
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching product", err });
+  }
+};
+
+/* CREATE PRODUCT */
 exports.addProduct = async (req, res) => {
   try {
     const name = req.body.name;
     const description = req.body.description;
-    const type = req.body.product_type;
+    const category = req.body.category;
     const price = req.body.price;
-    const total_in_stock = req.body.inStock;
-    const image_public_id = req.body.image_public_id;
+    const inStock = req.body.inStock;
+    const publicImage = req.body.publicImage;
     const file = req.files.file;
 
     const product = new Product({
       name,
       description,
-      type,
-      images: file.name,
-      image_public_id,
+      category,
       price,
+      inStock,
+      publicImage,
+      images: [file.name],
       reviews: [],
-      total_in_stock,
       createdAt: new Date().toISOString(),
     });
 
     await product.save();
 
     return res.status(200).json({
-      message: "Product added",
-    });
-  } catch (err) {
-    res.status(500);
-  }
-};
-
-exports.fetchProduct = async (req, res) => {
-  try {
-    const id = req.params.productId;
-    const product = await Product.findById({ _id: id });
-
-    res.status(200).json({
+      message: `Product ${name} added`,
       product,
     });
   } catch (err) {
-    res.status(500);
+    res.status(500).json({ message: "Error adding product", err });
   }
 };
 
+/* DELETE PRODUCT */
 exports.deleteProduct = async (req, res) => {
   try {
     const productId = req.body.id;
     console.log(productId);
     await Product.deleteOne({ _id: productId });
-    const products = await Product.find({});
 
-    return res.status(200).json({ message: "Successfully Deleted", products });
+    return res
+      .status(200)
+      .json({ message: `Product ${productId} deleted`, productId });
   } catch (err) {
     res.status(500);
   }
 };
 
+/* UPDATE PRODUCT */
 exports.editProduct = async (req, res) => {
   try {
-    const prodId = req.body.id;
+    const _id = req.body.id;
     const name = req.body.name;
     const description = req.body.description;
-    const type = req.body.type;
+    const category = req.body.category;
     const price = req.body.price;
-    const total_in_stock = req.body.inStock;
-    const image_public_id = req.body.image;
+    const inStock = req.body.inStock;
+    const publicImage = req.body.publicImage;
 
-    await Product.updateOne(
-      { _id: prodId },
+    const productUpdated = await Product.updateOne(
+      { _id: _id },
       {
         $set: {
           name,
           description,
-          type,
+          category,
           price,
-          total_in_stock,
-          image_public_id,
+          inStock,
+          publicImage,
         },
       }
     );
-    res.status(200).json({
-      message: "Product edited",
-    });
+
+    res
+      .status(200)
+      .json({ message: `Product ${name} updated`, productUpdated });
   } catch (err) {
-    res.status(500);
+    res.status(500).json({ message: "Error updating product", err });
   }
 };
