@@ -9,7 +9,6 @@ import { Tabs, Tab } from "react-bootstrap";
 import { Image } from "cloudinary-react";
 import { Trash, StarFill, Star } from "react-bootstrap-icons";
 import "./ModalProductForm.css";
-import cloudinary from "cloudinary/lib/cloudinary";
 
 import {
   listProducts,
@@ -21,10 +20,12 @@ import {
   updateProduct,
 } from "../../redux/Product/ProductAction";
 
+import { listCategories } from "../../redux/Category/CategoryAction";
+
 function ModalProductForm(props) {
   const dispatch = useDispatch();
   const { product } = useSelector((state) => state.individualProductReducer);
-
+  const { categories } = useSelector((state) => state.categoryReducer);
   useEffect(() => {}, [product]);
 
   const closeHandler = () => {
@@ -158,15 +159,21 @@ function ModalProductForm(props) {
             />
           </Form.Group>
           <Form.Group controlId="formProductType">
-            <Form.Label>Product Type</Form.Label>
+            <Form.Label>Product Category</Form.Label>
             <Form.Control
-              type="text"
-              placeholder="Enter Product Category"
+              as="select"
               value={product.category}
               onChange={(e) =>
                 dispatch(updateProduct("category", e.target.value))
               }
-            />
+            >
+              <option value="">Select Category</option>
+              {categories.map((category) => (
+                <option key={category._id} value={category.slug}>
+                  {category.name}
+                </option>
+              ))}
+            </Form.Control>
           </Form.Group>
           <Form.Group controlId="formProductPrice">
             <Form.Label>Product Price</Form.Label>

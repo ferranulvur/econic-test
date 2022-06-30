@@ -1,0 +1,2 @@
+export const CATEGORY_LIST = "CATEGORY_LIST";
+export const CATEGORY_ERROR = "CATEGORY_ERROR";

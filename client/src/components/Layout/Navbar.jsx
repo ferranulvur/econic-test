@@ -1,13 +1,15 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { Link, NavLink, useLocation, useHistory } from "react-router-dom";
 import CartContext from "../../contexts/cart-context";
 import AuthContext from "../../contexts/auth-context";
 import logo from "../../assets/img/logo.png";
+import { Nav, NavDropdown } from "react-bootstrap";
 import "./Navbar.css";
 
-const productsRoutes = ["/products", "/add-product"];
-
+import { listCategories } from "../../redux/Category/CategoryAction";
 
 function Navbar() {
   const [user, setUser] = useState({});
@@ -19,6 +21,9 @@ function Navbar() {
   const [active, setActive] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [keyword, setKeyword] = useState("");
+
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.categoryReducer);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -40,6 +45,7 @@ function Navbar() {
           console.log(err);
         });
     }
+    dispatch(listCategories());
   }, [context]);
 
   const toggleHotline = () => {
@@ -76,74 +82,54 @@ function Navbar() {
       <div className={showMenu ? "main-navbar show" : "main-navbar"}>
         <div className="mx-5 py-3 container-fluid">
           <nav className="navbar navbar-expand-md navbar-light">
-          <div className="col-1">
-            <div className="middle-header-logo">
-              <Link to="/">
-                <img src={logo} alt="image" href="/" />
-              </Link>
-            </div>
-          </div>
-            <div className={"navbar-category"}>
-              <div className="collapse navbar-collapse">
-                <ul className="navbar-nav">
-                  <li className="nav-item respo-nav">
-                    <a href="#" className="nav-link">
-                      <i className="bx bx-menu"></i>
-                      All Categories
-                    </a>
-                    <ul className="dropdown-menu">
-                      <li className="nav-item ">
-                        <Link to="/shop/semillas_cannabis" className="nav-link dark-nav-item">
-                          Semillas Cannabis
-                        </Link>
-                      </li>
-
-                      <li className="nav-item">
-                        <Link to="/shop/semillas_feminizadas" className="nav-link dark-nav-item">
-                          Semillas Feminizadas
-                        </Link>
-                      </li>
-
-                      <li className="nav-item">
-                        <Link to="/shop/semillas_autoflorecientes" className="nav-link dark-nav-item">
-                          Semillas Autoflorecientes
-                        </Link>
-                      </li>
-
-                      <li className="nav-item">
-                        <Link to="/shop/productos_cbd" className="nav-link dark-nav-item">
-                          Productos de CBD
-                        </Link>
-                      </li>
-
-                      <li className="nav-item">
-                        <Link to="/shop/merchandising" className="nav-link dark-nav-item">
-                          Merchandising
-                        </Link>
-                      </li>
-
-                      <li className="nav-item">
-                        <Link to="/shop/hemp_foods" className="nav-link dark-nav-item">
-                          Hemp Foods
-                        </Link>
-                      </li>
-
-                      <li className="nav-item">
-                        <Link to="/shop/vaporizadores" className="nav-link dark-nav-item">
-                          Vaporizadores
-                        </Link>
-                      </li>
-
-                    </ul>
-                  </li>
-                </ul>
+            <div className="col-1">
+              <div className="middle-header-logo">
+                <Link to="/">
+                  <img src={logo} alt="image" href="/" />
+                </Link>
               </div>
             </div>
+            {/* <NavDropdown
+              title="Categories"
+              id="basic-nav-dropdown"
+              className="col-2"
+            >
+              {categories.map((category) => (
+                <NavDropdown.Item key={category._id}>
+                  <Link to={`/shop/${category.name}`}>{category.name}</Link>
+                </NavDropdown.Item>
+              ))}
+            </NavDropdown> */}
+            {
+              <div className={"navbar-category"}>
+                <div className="collapse navbar-collapse">
+                  <ul className="navbar-nav">
+                    <li className="nav-item respo-nav">
+                      <a href="/shop/" className="nav-link">
+                        <i className="bx bx-menu"></i>
+                        All Categories
+                      </a>
+                      <ul className="dropdown-menu">
+                        {categories.map((category) => (
+                          <li className="nav-item">
+                            <Link
+                              to={`/shop/${category.slug}`}
+                              className="nav-link dark-nav-item"
+                            >
+                              {category.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            }
             <div className="col-lg-6">
               <div className="middle-header-search">
                 <form onSubmit={submitHandler}>
                   <div className="row align-items-center">
-
                     <div className="col-md-12">
                       <div className="search-box">
                         <input
@@ -178,9 +164,12 @@ function Navbar() {
                           <li>
                             <Link to="/cart">
                               <i className="flaticon-shopping-cart"></i>
-                              {cartContext.cartItems && cartContext.cartItems.length > 0 && (
-                                <span className="text-light">{cartContext.cartItems.length}</span>
-                              )}
+                              {cartContext.cartItems &&
+                                cartContext.cartItems.length > 0 && (
+                                  <span className="text-light">
+                                    {cartContext.cartItems.length}
+                                  </span>
+                                )}
                             </Link>
                           </li>
                           <li>
@@ -189,7 +178,8 @@ function Navbar() {
                               cartContext.cartItems.reduce((count, curItem) => {
                                 return (
                                   count +
-                                  parseInt(curItem.price) * parseInt(curItem.quantity || 0)
+                                  parseInt(curItem.price) *
+                                    parseInt(curItem.quantity || 0)
                                 );
                               }, 0)}
                           </li>
@@ -208,37 +198,58 @@ function Navbar() {
                                 </NavLink>
                                 <ul className="dropdown-menu">
                                   <li className="nav-item">
-                                    <NavLink to="/profile" className="nav-link dark-nav-item">
+                                    <NavLink
+                                      to="/profile"
+                                      className="nav-link dark-nav-item"
+                                    >
                                       Profile
                                     </NavLink>
                                   </li>
                                   <li className="nav-item">
-                                    <NavLink to="/products" className="nav-link dark-nav-item">
+                                    <NavLink
+                                      to="/products"
+                                      className="nav-link dark-nav-item"
+                                    >
                                       Products
                                     </NavLink>
                                   </li>
                                   <li className="nav-item">
-                                    <NavLink to="/add-product" className="nav-link dark-nav-item">
+                                    <NavLink
+                                      to="/add-product"
+                                      className="nav-link dark-nav-item"
+                                    >
                                       Add Product
                                     </NavLink>
                                   </li>
                                   <li className="nav-item">
-                                    <NavLink to="/cart" className="nav-link dark-nav-item">
+                                    <NavLink
+                                      to="/cart"
+                                      className="nav-link dark-nav-item"
+                                    >
                                       Cart
                                     </NavLink>
                                   </li>
                                   <li className="nav-item">
-                                    <NavLink to="/order" className="nav-link dark-nav-item">
+                                    <NavLink
+                                      to="/order"
+                                      className="nav-link dark-nav-item"
+                                    >
                                       Order
                                     </NavLink>
                                   </li>
                                   <li className="nav-item">
-                                    <NavLink to="/wishlist" className="nav-link dark-nav-item">
+                                    <NavLink
+                                      to="/wishlist"
+                                      className="nav-link dark-nav-item"
+                                    >
                                       Wishlist
                                     </NavLink>
                                   </li>
                                   <li className="nav-item">
-                                    <NavLink to="/reset" className="nav-link dark-nav-item">
+                                    <NavLink
+                                      to="/reset"
+                                      className="nav-link dark-nav-item"
+                                    >
                                       Reset password
                                     </NavLink>
                                   </li>
@@ -251,7 +262,6 @@ function Navbar() {
                                       Logout
                                     </button>
                                   </li>
-
                                 </ul>
                               </li>
                             </ul>
@@ -261,15 +271,13 @@ function Navbar() {
                     )}
                   </div>
                 </div>
-              </div>              
+              </div>
             </div>
-
-        </nav>
+          </nav>
+        </div>
       </div>
-    </div>
 
-
-{/* Toggle */}
+      {/* Toggle */}
       <div className="others-option-for-responsive">
         <div className="container">
           <div className="responsive-logo">

@@ -21,6 +21,8 @@ import {
   cleanProduct,
 } from "../../redux/Product/ProductAction";
 
+import { listCategories } from "../../redux/Category/CategoryAction";
+
 function ProductsArea({ history }) {
   /* Auth */
   const context = useContext(authContext);
@@ -35,6 +37,8 @@ function ProductsArea({ history }) {
   const { products } = useSelector((state) => state.productReducer);
   const { product } = useSelector((state) => state.individualProductReducer);
   const { success } = useSelector((state) => state.productAddReducer);
+  const { categories } = useSelector((state) => state.categoryReducer);
+
   /* Use Effect */
   useEffect(() => {
     axios
@@ -44,6 +48,7 @@ function ProductsArea({ history }) {
       .then((res) => setRole(res.data.role))
       .catch((err) => console.log(err));
     dispatch(listProducts());
+    dispatch(listCategories());
   }, [success]);
 
   /* Helper Functions */

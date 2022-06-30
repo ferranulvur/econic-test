@@ -72,7 +72,9 @@ function QuickView({ isOpen, closeModal, product }) {
                     <span
                       className="minus-btn"
                       onClick={() =>
-                        quantity >= 1 ? setQuantity(quantity - 1) : setQuantity(1)
+                        quantity >= 1
+                          ? setQuantity(quantity - 1)
+                          : setQuantity(1)
                       }
                     >
                       <i className="bx bx-minus"></i>
@@ -93,18 +95,17 @@ function QuickView({ isOpen, closeModal, product }) {
                   </div>
                 </div>
 
-                  <div className="product-add-to-cart">
-                    <button
-                      type="submit"
-                      className="default-btn"
-                      onClick={() => addToCart(product)}
-                    >
-                      <i className="flaticon-shopping-cart"></i>
-                      Add to cart
-                      <span></span>
-                    </button>
-                  </div>
-                
+                <div className="product-add-to-cart">
+                  <button
+                    type="submit"
+                    className="default-btn"
+                    onClick={() => addToCart(product)}
+                  >
+                    <i className="flaticon-shopping-cart"></i>
+                    Add to cart
+                    <span></span>
+                  </button>
+                </div>
               </Col>
             </Row>
           </Container>

@@ -4,7 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
-import Search from './pages/About/Search';
+import Search from "./pages/About/Search";
 import Login from "./pages/Authentications/Login";
 import Register from "./pages/Authentications/Register";
 import ResetPassword from "./pages/Authentications/ResetPassword";
@@ -32,7 +32,6 @@ import BlogLeftSidebar from "./pages/Blog/BlogLeftSidebar";
 import BlogRightSidebar from "./pages/Blog/BlogRightSidebar";
 import BlogFullWidth from "./pages/Blog/BlogFullWidth";
 import BlogDetails from "./pages/Blog/BlogDetails";
-import AddProduct from "./pages/Products/AddProduct";
 import User from "./pages/User/User";
 import Products from "./pages/Products/Products";
 import Categories from "./pages/Categories/Categories";
@@ -50,7 +49,7 @@ function App() {
   const [userId, setUserId] = useState("");
   const [tokenExpiration, setTokenExpiration] = useState("");
   const [cartItems, setCartItems] = useState([]);
-  const [test,setTest] = useState(null);
+  const [test, setTest] = useState(null);
 
   useEffect(() => {
     const _token = JSON.parse(localStorage.getItem("token"));
@@ -107,7 +106,6 @@ function App() {
       );
       setCartItems([...cartItems, product]);
     }
-
   };
 
   const removeItemFromCart = (id) => {
@@ -185,7 +183,6 @@ function App() {
               <Route path="/blog-full-width" component={BlogFullWidth} />
               <Route path="/blog-details" component={BlogDetails} />
               <Route path="/coming-soon" component={ComingSoon} />
-              {token && <Route path="/add-product" component={AddProduct} />}
               {token && <Route path="/profile" component={User} />}
               {token && <Route path="/products" component={Products} />}
               {token && <Route path="/categories" component={Categories} />}
