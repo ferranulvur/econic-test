@@ -53,8 +53,7 @@ function ModalProductForm(props) {
             product.price,
             product.inStock,
             product.images,
-            product.publicImage,
-            product.images
+            product.publicImage
           )
         );
         closeHandler();

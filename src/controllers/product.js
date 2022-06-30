@@ -58,7 +58,7 @@ exports.addProduct = async (req, res) => {
     const price = req.body.price;
     const inStock = req.body.inStock;
     const publicImage = req.body.publicImage;
-    const file = req.files.file;
+    const images = req.body.images;
 
     const product = new Product({
       name,
@@ -67,7 +67,7 @@ exports.addProduct = async (req, res) => {
       price,
       inStock,
       publicImage,
-      images: [file.name],
+      images: images.split(","),
       reviews: [],
       createdAt: new Date().toISOString(),
     });

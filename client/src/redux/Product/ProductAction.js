@@ -220,7 +220,8 @@ export const deleteProductAction = (id) => async (dispatch) => {
 };
 
 export const addProductAction =
-  (name, description, category, price, inStock, image) => async (dispatch) => {
+  (name, description, category, price, inStock, images, publicImage) =>
+  async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_ADD_REQUEST });
       //const { userLogin: {userInfo} } = getState();
@@ -240,20 +241,8 @@ export const addProductAction =
       formData.append("category", category);
       formData.append("price", price);
       formData.append("inStock", inStock);
-      formData.append("file", image);
-
-      /* Cloudinary formData Fields */
-      formData.append("upload_preset", "vikings");
-
-      /* Cloudinary Post */
-      const cloudinaryData = await axios.post(
-        "https://api.cloudinary.com/v1_1/dev-empty/image/upload",
-        formData,
-        config
-      );
-
-      /* Cloudinary formData Fields */
-      formData.append("publicImage", cloudinaryData.data.public_id);
+      formData.append("publicImage", publicImage);
+      formData.append("images", images);
 
       /* add-product POST Request */
       const { data } = await axios.post(

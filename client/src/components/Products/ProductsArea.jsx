@@ -18,6 +18,7 @@ import {
   updateProductAction,
   deleteProductAction,
   individualProductReducer,
+  cleanProduct,
 } from "../../redux/Product/ProductAction";
 
 function ProductsArea({ history }) {
@@ -52,6 +53,13 @@ function ProductsArea({ history }) {
   };
 
   /* Modal Functions */
+
+  /* Edit */
+  const openAddModal = () => {
+    dispatch(cleanProduct());
+    setAddModalShow(true);
+  };
+
   /* Delete */
   const openDeleteModal = (product) => {
     dispatch(listProduct(product._id));
@@ -161,10 +169,7 @@ function ProductsArea({ history }) {
       <div className="container">
         <div className="row">
           <div className="col-md-4">
-            <Button
-              onClick={() => setAddModalShow(true)}
-              variant="primary my-3"
-            >
+            <Button onClick={() => openAddModal()} variant="primary my-3">
               Add Product
             </Button>
           </div>

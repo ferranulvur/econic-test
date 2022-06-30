@@ -44,7 +44,7 @@ function ShopArea({
                       <Image
                         key={product._id}
                         cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
-                        publicId={product.image_public_id}
+                        publicId={product.publicImage}
                         width="300"
                         crop="scale"
                       />
