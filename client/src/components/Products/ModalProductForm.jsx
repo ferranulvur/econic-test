@@ -5,6 +5,11 @@ import authContext from "../../contexts/auth-context";
 import { Modal, Button, Form } from "react-bootstrap";
 import validate from "./validateinfo";
 import Swal from "sweetalert2";
+import { Tabs, Tab } from "react-bootstrap";
+import { Image } from "cloudinary-react";
+import { Trash, StarFill, Star } from "react-bootstrap-icons";
+import "./ModalProductForm.css";
+import cloudinary from "cloudinary/lib/cloudinary";
 
 import {
   listProducts,
@@ -13,45 +18,17 @@ import {
   addProductAction,
   listProduct,
   cleanProduct,
+  updateProduct,
 } from "../../redux/Product/ProductAction";
 
 function ModalProductForm(props) {
-  console.log(props);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [images, setImages] = useState([]);
-  const [publicImage, setPublicImage] = useState("");
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
-  const [inStock, setInStock] = useState("");
-  const context = useContext(authContext);
-  const [errors, setErrors] = useState({});
-
   const dispatch = useDispatch();
   const { product } = useSelector((state) => state.individualProductReducer);
-  console.log(product);
 
-  useEffect(() => {
-    console.log(props.data);
-    setName(props.data ? props.data.name : "");
-    setDescription(props.data ? props.data.description : "");
-    setImages(props.data ? props.data.images : "");
-    setPublicImage(props.data ? props.data.publicImage : "");
-    setPrice(props.data ? props.data.price : "");
-    setCategory(props.data ? props.data.category : "");
-    setInStock(props.data ? props.data.inStock : "");
-  }, [props.data]);
+  useEffect(() => {}, [product]);
 
   const closeHandler = () => {
-    setName("");
-    setDescription("");
-    setCategory("");
-    setImages("");
-    setPublicImage("");
-    setPrice("");
-    setInStock("");
-    setErrors("");
-
+    dispatch(cleanProduct());
     props.onHide();
     dispatch(listProducts());
   };
@@ -70,13 +47,14 @@ function ModalProductForm(props) {
       if (result.value) {
         dispatch(
           addProductAction(
-            name,
-            description,
-            category,
-            price,
-            inStock,
-            images,
-            publicImage
+            product.name,
+            product.description,
+            product.category,
+            product.price,
+            product.inStock,
+            product.images,
+            product.publicImage,
+            product.images
           )
         );
         closeHandler();
@@ -86,16 +64,7 @@ function ModalProductForm(props) {
     });
   };
 
-  const editProduct = async (
-    e,
-    id,
-    name,
-    description,
-    category,
-    price,
-    inStock,
-    publicImage
-  ) => {
+  const editProduct = async (e) => {
     e.preventDefault();
     Swal.fire({
       title: "Updating Product",
@@ -109,19 +78,47 @@ function ModalProductForm(props) {
       if (result.value) {
         dispatch(
           updateProductAction(
-            id,
-            name,
-            description,
-            category,
-            price,
-            inStock,
-            publicImage
+            product._id,
+            product.name,
+            product.description,
+            product.category,
+            product.price,
+            product.inStock,
+            product.publicImage,
+            product.images
           )
         );
+        dispatch(listProducts());
         closeHandler();
         Swal.fire("Updated!", "Your product has been updated.", "success");
       }
     });
+  };
+
+  const deleteImage = async (image) => {
+    let imageArray = product.images ? product.images : [];
+    /* Delete Image pending */
+    imageArray = imageArray.filter((e) => e !== image);
+    dispatch(updateProduct("images", imageArray));
+  };
+
+  const addImage = async (e) => {
+    e.preventDefault();
+    let imageArray = product.images ? product.images : [];
+
+    const formData = new FormData();
+    formData.append("upload_preset", "vikings");
+    formData.append("file", e.target.files[0]);
+
+    const cloudinaryData = axios
+      .post("https://api.cloudinary.com/v1_1/dev-empty/image/upload", formData)
+      .then((res) => {
+        if (res.statusText === "OK") {
+          imageArray.push(res.data.public_id);
+          dispatch(updateProduct("images", imageArray));
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -144,11 +141,8 @@ function ModalProductForm(props) {
             <Form.Control
               type="text"
               placeholder="Enter Product Name"
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-                console.log(name);
-              }}
+              value={product.name}
+              onChange={(e) => dispatch(updateProduct("name", e.target.value))}
             />
           </Form.Group>
           <Form.Group controlId="formProductDescription">
@@ -158,17 +152,21 @@ function ModalProductForm(props) {
               as="textarea"
               rows="3"
               placeholder="Enter Product Description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={product.description}
+              onChange={(e) =>
+                dispatch(updateProduct("description", e.target.value))
+              }
             />
           </Form.Group>
           <Form.Group controlId="formProductType">
             <Form.Label>Product Type</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter Product Type"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              placeholder="Enter Product Category"
+              value={product.category}
+              onChange={(e) =>
+                dispatch(updateProduct("category", e.target.value))
+              }
             />
           </Form.Group>
           <Form.Group controlId="formProductPrice">
@@ -176,8 +174,8 @@ function ModalProductForm(props) {
             <Form.Control
               type="number"
               placeholder="Enter Product Price"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              value={product.price}
+              onChange={(e) => dispatch(updateProduct("price", e.target.value))}
             />
           </Form.Group>
           <Form.Group controlId="formProductStock">
@@ -185,19 +183,60 @@ function ModalProductForm(props) {
             <Form.Control
               type="number"
               placeholder="Enter Product In Stock"
-              value={inStock}
-              onChange={(e) => setInStock(e.target.value)}
+              value={product.inStock}
+              onChange={(e) =>
+                dispatch(updateProduct("inStock", e.target.value))
+              }
             />
           </Form.Group>
+          <Form.Group controlId="images" className="d-flex">
+            {product.images && product.images.length
+              ? product.images.map((image, index) => (
+                  <div className="imgContainer" key={index}>
+                    <Image
+                      fluid="true"
+                      cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
+                      publicId={image}
+                      width="64"
+                      crop="scale"
+                      alt="product"
+                      className="img-thumbnail m-2"
+                    />
+                    <Trash
+                      className="imageDeleteIcon"
+                      color="red"
+                      size={24}
+                      onClick={() => deleteImage(image)}
+                    />
+                    {image === product.publicImage ? (
+                      <StarFill
+                        className="imagePublicIcon"
+                        color="royalblue"
+                        size={24}
+                      />
+                    ) : (
+                      <Star
+                        className="imageNotPublicIcon"
+                        color="royalblue"
+                        size={24}
+                        onClick={() =>
+                          dispatch(updateProduct("publicImage", image))
+                        }
+                      />
+                    )}
+                  </div>
+                ))
+              : ""}
+          </Form.Group>
           <Form.Group controlId="formProductImage">
-            <Form.Label>Product Image</Form.Label>
+            <Form.Label>Add Image</Form.Label>
             <Form.File
               accept="image/*"
               id="formProductImage"
               placeholder="Enter Product Image"
               onInput={(e) => {
                 console.log(e.target.files[0]);
-                setImages(e.target.files[0]);
+                addImage(e);
               }}
             />
           </Form.Group>
@@ -209,21 +248,7 @@ function ModalProductForm(props) {
             Add
           </Button>
         ) : (
-          <Button
-            variant="primary"
-            onClick={(e) =>
-              editProduct(
-                e,
-                props.data._id,
-                name,
-                description,
-                category,
-                price,
-                inStock,
-                publicImage
-              )
-            }
-          >
+          <Button variant="primary" onClick={(e) => editProduct(e)}>
             Save Changes
           </Button>
         )}

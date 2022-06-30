@@ -15,6 +15,13 @@ import {
   INDIVIDUAL_PRODUCT_LIST,
   INDIVIDUAL_PRODUCT_ERROR,
   INDIVIDUAL_PRODUCT_CLEAN,
+  INDIVIDUAL_PRODUCT_UPD_NAME,
+  INDIVIDUAL_PRODUCT_UPD_DESCRIPTION,
+  INDIVIDUAL_PRODUCT_UPD_PRICE,
+  INDIVIDUAL_PRODUCT_UPD_IMAGES,
+  INDIVIDUAL_PRODUCT_UPD_CATEGORY,
+  INDIVIDUAL_PRODUCT_UPD_PUBLIC_IMAGE,
+  INDIVIDUAL_PRODUCT_UPD_INSTOCK,
 } from "./ProductTypes";
 
 export const listProducts =
@@ -65,6 +72,65 @@ export const listProduct = (id) => async (dispatch) => {
   }
 };
 
+export const updateProduct = (key, value) => async (dispatch) => {
+  try {
+    switch (key) {
+      case "name":
+        dispatch({
+          type: INDIVIDUAL_PRODUCT_UPD_NAME,
+          payload: value,
+        });
+        break;
+      case "description":
+        dispatch({
+          type: INDIVIDUAL_PRODUCT_UPD_DESCRIPTION,
+          payload: value,
+        });
+        break;
+      case "price":
+        dispatch({
+          type: INDIVIDUAL_PRODUCT_UPD_PRICE,
+          payload: value,
+        });
+        break;
+      case "images":
+        dispatch({
+          type: INDIVIDUAL_PRODUCT_UPD_IMAGES,
+          payload: value,
+        });
+        break;
+      case "category":
+        dispatch({
+          type: INDIVIDUAL_PRODUCT_UPD_CATEGORY,
+          payload: value,
+        });
+        break;
+      case "publicImage":
+        dispatch({
+          type: INDIVIDUAL_PRODUCT_UPD_PUBLIC_IMAGE,
+          payload: value,
+        });
+        break;
+      case "inStock":
+        dispatch({
+          type: INDIVIDUAL_PRODUCT_UPD_INSTOCK,
+          payload: value,
+        });
+        break;
+      default:
+        break;
+    }
+  } catch (error) {
+    dispatch({
+      type: INDIVIDUAL_PRODUCT_ERROR,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
 export const cleanProduct = () => async (dispatch) => {
   try {
     dispatch({
@@ -83,7 +149,7 @@ export const cleanProduct = () => async (dispatch) => {
 };
 
 export const updateProductAction =
-  (id, name, description, category, price, inStock, publicImage) =>
+  (id, name, description, category, price, inStock, publicImage, images) =>
   async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_UPDATE_REQUEST });
@@ -106,6 +172,7 @@ export const updateProductAction =
           price,
           inStock,
           publicImage,
+          images,
         },
         config
       );

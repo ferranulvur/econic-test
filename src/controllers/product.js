@@ -108,6 +108,7 @@ exports.editProduct = async (req, res) => {
     const price = req.body.price;
     const inStock = req.body.inStock;
     const publicImage = req.body.publicImage;
+    const images = req.body.images;
 
     const productUpdated = await Product.updateOne(
       { _id: _id },
@@ -119,6 +120,7 @@ exports.editProduct = async (req, res) => {
           price,
           inStock,
           publicImage,
+          images,
         },
       }
     );

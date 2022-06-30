@@ -33,7 +33,7 @@ function ProductsArea({ history }) {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.productReducer);
   const { product } = useSelector((state) => state.individualProductReducer);
-
+  const { success } = useSelector((state) => state.productAddReducer);
   /* Use Effect */
   useEffect(() => {
     axios
@@ -42,7 +42,8 @@ function ProductsArea({ history }) {
       })
       .then((res) => setRole(res.data.role))
       .catch((err) => console.log(err));
-  }, []);
+    dispatch(listProducts());
+  }, [success]);
 
   /* Helper Functions */
   /* Details */
@@ -85,6 +86,7 @@ function ProductsArea({ history }) {
       sortable: true,
       cell: (row) => (
         <Image
+          onClick={() => goToDetails(row._id)}
           cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
           publicId={row.publicImage}
           width="64"

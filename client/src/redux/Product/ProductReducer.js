@@ -13,6 +13,13 @@ import {
   INDIVIDUAL_PRODUCT_LIST,
   INDIVIDUAL_PRODUCT_ERROR,
   INDIVIDUAL_PRODUCT_CLEAN,
+  INDIVIDUAL_PRODUCT_UPD_NAME,
+  INDIVIDUAL_PRODUCT_UPD_DESCRIPTION,
+  INDIVIDUAL_PRODUCT_UPD_IMAGES,
+  INDIVIDUAL_PRODUCT_UPD_CATEGORY,
+  INDIVIDUAL_PRODUCT_UPD_PRICE,
+  INDIVIDUAL_PRODUCT_UPD_PUBLIC_IMAGE,
+  INDIVIDUAL_PRODUCT_UPD_INSTOCK,
 } from "./ProductTypes";
 
 const initialState = {
@@ -77,6 +84,62 @@ export const individualProductReducer = (
       return {
         ...state,
         product: [],
+      };
+    case INDIVIDUAL_PRODUCT_UPD_NAME:
+      return {
+        ...state,
+        product: {
+          ...state.product,
+          name: payload,
+        },
+      };
+    case INDIVIDUAL_PRODUCT_UPD_DESCRIPTION:
+      return {
+        ...state,
+        product: {
+          ...state.product,
+          description: payload,
+        },
+      };
+    case INDIVIDUAL_PRODUCT_UPD_IMAGES:
+      return {
+        ...state,
+        product: {
+          ...state.product,
+          images: payload,
+        },
+      };
+    case INDIVIDUAL_PRODUCT_UPD_CATEGORY:
+      return {
+        ...state,
+        product: {
+          ...state.product,
+          category: payload,
+        },
+      };
+    case INDIVIDUAL_PRODUCT_UPD_PRICE:
+      return {
+        ...state,
+        product: {
+          ...state.product,
+          price: payload,
+        },
+      };
+    case INDIVIDUAL_PRODUCT_UPD_INSTOCK:
+      return {
+        ...state,
+        product: {
+          ...state.product,
+          inStock: payload,
+        },
+      };
+    case INDIVIDUAL_PRODUCT_UPD_PUBLIC_IMAGE:
+      return {
+        ...state,
+        product: {
+          ...state.product,
+          publicImage: payload,
+        },
       };
 
     default:
