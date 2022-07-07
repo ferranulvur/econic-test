@@ -107,18 +107,19 @@ function ModalProductForm(props) {
     let imageArray = product.images ? product.images : [];
 
     const formData = new FormData();
-    formData.append("upload_preset", "vikings");
-    formData.append("file", e.target.files[0]);
-
-    const cloudinaryData = axios
-      .post("https://api.cloudinary.com/v1_1/dev-empty/image/upload", formData)
+    formData.append("image", e.target.files[0]);
+    axios
+      .post("/cloudinary/uploadImage", formData)
       .then((res) => {
-        if (res.statusText === "OK") {
-          imageArray.push(res.data.public_id);
-          dispatch(updateProduct("images", imageArray));
-        }
+        console.log(res.data);
+        const { public_id } = res.data;
+        console.log(public_id);
+        imageArray.push(res.data.public_id);
+        dispatch(updateProduct("images", imageArray));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (

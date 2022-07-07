@@ -32,12 +32,12 @@ exports.fetchCategories = async (req, res) => {
         count: await Product.countDocuments({ ..._keyword }),
       };
 
-      console.log(newCategory);
+      //console.log(newCategory);
       categories.push(newCategory);
       ctr++;
 
       if (ctr === _categories.length) {
-        console.log(categories);
+        //console.log(categories);
         res.json({ categories, page, pages: Math.ceil(count / pageSize) });
       }
     });

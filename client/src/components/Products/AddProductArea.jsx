@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import validate from './validateinfo';
+import validate from "./validateinfo";
 
 function AddProductArea() {
   const [product_name, setProductName] = useState("");
@@ -23,8 +23,36 @@ function AddProductArea() {
     formData.append("total_in_stock", product_totalInStock);
     formData.append("upload_preset", "vikings");
     setErrors(validate(formData));
-    
+
     axios
+      .post("/cloudinary/uploadIMage", formData)
+      .then((res) => {
+        if (res.statusText === "OK") {
+          let image_public_id = res.data.public_id;
+          formData.append("image_public_id", image_public_id);
+          return axios
+            .post("/products/add-product", formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then((res) => {
+              if (res.data.message === "Product added") {
+                setMessage(product_name + " added");
+                setProductName("");
+                setProductDescription("");
+                setProductImages("");
+                setProductType("");
+                setProductPrice("");
+                setTotalInStock("");
+                setErrors("");
+              }
+            });
+        }
+      })
+      .catch((err) => console.log(err));
+
+    /*     axios
       .post("https://api.cloudinary.com/v1_1/dev-empty/image/upload", formData)
       .then((res) => {
         if (res.statusText === "OK") {
@@ -45,12 +73,12 @@ function AddProductArea() {
                 setProductImages("");
                 setProductPrice("");
                 setTotalInStock("");
-                setErrors('');
+                setErrors("");
               }
             });
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err)); */
   };
 
   return (
@@ -75,7 +103,9 @@ function AddProductArea() {
                 value={product_name}
                 onChange={(e) => setProductName(e.target.value)}
               />
-              {product_name ==='' && <p className="error_color">{errors.product_name}</p>}
+              {product_name === "" && (
+                <p className="error_color">{errors.product_name}</p>
+              )}
             </div>
             <div className="form-group">
               <label htmlFor="product_description">Product Description</label>
@@ -86,7 +116,9 @@ function AddProductArea() {
                 onChange={(e) => setProductDescription(e.target.value)}
                 placeholder="Description"
               ></textarea>
-              {product_description === '' && <p className="error_color">{errors.product_description}</p>}
+              {product_description === "" && (
+                <p className="error_color">{errors.product_description}</p>
+              )}
             </div>
             <div className="form-group">
               <label htmlFor="product_images">Product Images</label>
@@ -96,7 +128,9 @@ function AddProductArea() {
                 accept="image/*"
                 onChange={(e) => setProductImages(e.target.files[0])}
               />
-              {product_images === '' && <p className="error_color">{errors.product_images}</p>}
+              {product_images === "" && (
+                <p className="error_color">{errors.product_images}</p>
+              )}
             </div>
             <div className="form-group">
               <label htmlFor="product_type">Product Type</label>
@@ -107,14 +141,20 @@ function AddProductArea() {
               >
                 <option>All Type</option>
                 <option value="semillas_cannabis">Semillas Cannabis</option>
-                <option value="semillas_feminizadas">Semillas Feminizadas</option>
-                <option value="semillas_autoflorecientes">Semillas Autoflorecientes</option>
+                <option value="semillas_feminizadas">
+                  Semillas Feminizadas
+                </option>
+                <option value="semillas_autoflorecientes">
+                  Semillas Autoflorecientes
+                </option>
                 <option value="productos_cbd">Productos de CBD</option>
                 <option value="merchandising">Merchandising</option>
                 <option value="hemp_foods">Hemp Foods</option>
                 <option value="vaporizadores">Vaporizadores</option>
               </select>
-              {product_type === '' && <p className="error_color">{errors.product_type}</p>}
+              {product_type === "" && (
+                <p className="error_color">{errors.product_type}</p>
+              )}
             </div>
             <div className="form-group">
               <label htmlFor="product_price">Product Price</label>
@@ -126,7 +166,9 @@ function AddProductArea() {
                 value={product_price}
                 onChange={(e) => setProductPrice(e.target.value)}
               />
-               {product_price === '' && <p className="error_color">{errors.product_price}</p>}
+              {product_price === "" && (
+                <p className="error_color">{errors.product_price}</p>
+              )}
             </div>
             <div className="form-group">
               <label htmlFor="product_totalInStock">Total in stock</label>
@@ -138,9 +180,14 @@ function AddProductArea() {
                 value={product_totalInStock}
                 onChange={(e) => setTotalInStock(e.target.value)}
               />
-              {product_totalInStock === '' && <p className="error_color">{errors.product_totalInStock}</p>}
+              {product_totalInStock === "" && (
+                <p className="error_color">{errors.product_totalInStock}</p>
+              )}
             </div>
-            <button className="add-product-btn"><i className="flaticon-shopping-cart add-product-btn-icon"></i>Add Product</button>
+            <button className="add-product-btn">
+              <i className="flaticon-shopping-cart add-product-btn-icon"></i>Add
+              Product
+            </button>
           </form>
         </div>
       </div>

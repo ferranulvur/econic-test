@@ -1,22 +1,36 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Image } from "cloudinary-react";
 import CartContext from "../../contexts/cart-context";
 
+/* Components */
+import CustomImageGallery from "./ImageGallery";
+
+/* Redux Actions */
+import {
+  listProducts,
+  updateProductAction,
+  deleteProductAction,
+  addProductAction,
+  listProduct,
+  cleanProduct,
+  updateProduct,
+} from "../../redux/Product/ProductAction";
+
 function ProductsDetailsArea() {
   const [quantity, setQuantity] = useState(1);
-  const [product, setProduct] = useState({});
+
   const { productId } = useParams();
   const context = useContext(CartContext);
 
+  const dispatch = useDispatch();
+  const { product } = useSelector((state) => state.individualProductReducer);
+
   useEffect(() => {
-    axios
-      .get("/products/fetch-product/" + productId)
-      .then((res) => {
-        setProduct(res.data.product);
-      })
-      .catch((err) => console.log(err));
+    dispatch(listProduct(productId));
   }, []);
 
   const addToCart = (product) => {
@@ -24,9 +38,9 @@ function ProductsDetailsArea() {
       _id: product._id,
       name: product.name,
       price: product.price,
-      type: product.type,
-      total_in_stock: product.total_in_stock,
-      image_public_id: product.image_public_id,
+      category: product.category,
+      inStock: product.inStock,
+      publicImage: product.publicImage,
       quantity,
     };
     context.addItemToCart(currentItem);
@@ -38,19 +52,7 @@ function ProductsDetailsArea() {
         <div className="products-details-desc">
           <div className="row align-items-center">
             <div className="col-lg-6 col-md-6">
-              <div className="main-products-image">
-                <div className="slider slider-for">
-                  <div>
-                    <Image
-                      key={product.image_public_id}
-                      cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
-                      publicId={product.image_public_id}
-                      width="500"
-                      crop="scale"
-                    />
-                  </div>
-                </div>
-              </div>
+              <div>{product && <CustomImageGallery />}</div>
             </div>
 
             <div className="col-lg-6 col-md-6">
@@ -68,20 +70,21 @@ function ProductsDetailsArea() {
                 </div>
 
                 <div className="price">
-                  <span className="old-price">{(product.price*1.2).toFixed(2)}€</span>
-                  <span className="new-price">${parseFloat(product.price).toFixed(2)}</span>
+                  <span className="new-price">
+                    ${parseFloat(product.price).toFixed(2)}
+                  </span>
                 </div>
                 <p>{product.description}</p>
 
                 <ul className="products-info">
                   <li>
                     <span>Availability:</span>{" "}
-                    {product.total_in_stock > 0
-                      ? `In stock (${product.total_in_stock})`
+                    {product.inStock > 0
+                      ? `In stock (${product.inStock})`
                       : "Stock finished"}
                   </li>
                   <li>
-                    <span>SKU:</span> <a href="#">L458-25</a>
+                    <span>SKU:</span> <a href="#">{product._id}</a>
                   </li>
                 </ul>
 
@@ -104,7 +107,7 @@ function ProductsDetailsArea() {
                       value={quantity}
                       onChange={(e) => setQuantity(e.target.value)}
                       min="1"
-                      max={product.total_in_stock}
+                      max={product.inStock}
                     />
                     <span
                       className="plus-btn"
