@@ -22,6 +22,7 @@ import {
   INDIVIDUAL_PRODUCT_UPD_CATEGORY,
   INDIVIDUAL_PRODUCT_UPD_PUBLIC_IMAGE,
   INDIVIDUAL_PRODUCT_UPD_INSTOCK,
+  INDIVIDUAL_PRODUCT_UPD_OVERVIEW,
 } from "./ProductTypes";
 
 export const listProducts =
@@ -78,6 +79,12 @@ export const updateProduct = (key, value) => async (dispatch) => {
       case "name":
         dispatch({
           type: INDIVIDUAL_PRODUCT_UPD_NAME,
+          payload: value,
+        });
+        break;
+      case "overview":
+        dispatch({
+          type: INDIVIDUAL_PRODUCT_UPD_OVERVIEW,
           payload: value,
         });
         break;
@@ -149,7 +156,17 @@ export const cleanProduct = () => async (dispatch) => {
 };
 
 export const updateProductAction =
-  (id, name, description, category, price, inStock, publicImage, images) =>
+  (
+    id,
+    name,
+    description,
+    overview,
+    category,
+    price,
+    inStock,
+    publicImage,
+    images
+  ) =>
   async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_UPDATE_REQUEST });
@@ -168,6 +185,7 @@ export const updateProductAction =
           id,
           name,
           description,
+          overview,
           category,
           price,
           inStock,
@@ -220,7 +238,16 @@ export const deleteProductAction = (id) => async (dispatch) => {
 };
 
 export const addProductAction =
-  (name, description, category, price, inStock, images, publicImage) =>
+  (
+    name,
+    description,
+    overview,
+    category,
+    price,
+    inStock,
+    images,
+    publicImage
+  ) =>
   async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_ADD_REQUEST });
@@ -238,6 +265,7 @@ export const addProductAction =
       /* Collection formData Fields */
       formData.append("name", name);
       formData.append("description", description);
+      formData.append("overview", overview);
       formData.append("category", category);
       formData.append("price", price);
       formData.append("inStock", inStock);

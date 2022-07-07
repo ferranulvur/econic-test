@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import ReactHtmlParser from "react-html-parser";
 
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -209,46 +210,7 @@ function ProductsDetailsArea() {
               role="tabpanel"
             >
               <h2>Overview</h2>
-
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea com modo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea com modo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore fugiat
-                nulla pariatur.
-              </p>
-
-              <ul>
-                <li>
-                  It has survived not only five centuries, but also the leap
-                  into electronic typesetting, remaining essentially unchanged.
-                </li>
-                <li>
-                  Contrary to popular belief, Lorem Ipsum is not simply random
-                  text.
-                </li>
-                <li>
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters.
-                </li>
-                <li>
-                  Various versions have evolved over the years, sometimes by
-                  accident sometimes on purpose.
-                </li>
-                <li>
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore fugiat nulla pariatur.
-                </li>
-              </ul>
+              <div>{ReactHtmlParser(product.overview)}</div>
             </div>
 
             <div className="tab-pane fade" id="reviews" role="tabpanel">

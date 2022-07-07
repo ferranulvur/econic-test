@@ -65,6 +65,7 @@ function ModalProductForm(props) {
     e.preventDefault();
     const formData = new FormData();
     formData.append("product_name", name);
+    formData.append("product-overview", overview);
     formData.append("product_description", description);
     formData.append("file", product_images);
     formData.append("product_type", type);

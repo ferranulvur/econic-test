@@ -54,6 +54,7 @@ exports.addProduct = async (req, res) => {
   try {
     const name = req.body.name;
     const description = req.body.description;
+    const overview = req.body.overview;
     const category = req.body.category;
     const price = req.body.price;
     const inStock = req.body.inStock;
@@ -63,6 +64,7 @@ exports.addProduct = async (req, res) => {
     const product = new Product({
       name,
       description,
+      overview,
       category,
       price,
       inStock,
@@ -104,6 +106,7 @@ exports.editProduct = async (req, res) => {
     const _id = req.body.id;
     const name = req.body.name;
     const description = req.body.description;
+    const overview = req.body.overview;
     const category = req.body.category;
     const price = req.body.price;
     const inStock = req.body.inStock;
@@ -116,6 +119,7 @@ exports.editProduct = async (req, res) => {
         $set: {
           name,
           description,
+          overview,
           category,
           price,
           inStock,

@@ -20,6 +20,7 @@ import {
   INDIVIDUAL_PRODUCT_UPD_PRICE,
   INDIVIDUAL_PRODUCT_UPD_PUBLIC_IMAGE,
   INDIVIDUAL_PRODUCT_UPD_INSTOCK,
+  INDIVIDUAL_PRODUCT_UPD_OVERVIEW,
 } from "./ProductTypes";
 
 const initialState = {
@@ -91,6 +92,14 @@ export const individualProductReducer = (
         product: {
           ...state.product,
           name: payload,
+        },
+      };
+    case INDIVIDUAL_PRODUCT_UPD_OVERVIEW:
+      return {
+        ...state,
+        product: {
+          ...state.product,
+          overview: payload,
         },
       };
     case INDIVIDUAL_PRODUCT_UPD_DESCRIPTION:
