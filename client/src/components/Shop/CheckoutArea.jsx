@@ -1,73 +1,59 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import CartContext from "../../contexts/cart-context";
 import AuthContext from "../../contexts/auth-context";
 import axios from "axios";
 
+import {
+  listOrder,
+  cleanOrder,
+  updateOrderState,
+} from "../../redux/Order/OrderAction";
+
 function CheckoutArea() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [country, setCountry] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [postCode, setPostCode] = useState("");
-  const [orderNotes, setOrderNotes] = useState("");
+  const dispatch = useDispatch();
+  const { order } = useSelector((state) => state.individualOrderReducer);
+  useEffect(() => {}, [order]);
+
   const [message, setMessage] = useState("");
 
   const context = useContext(CartContext);
   const authContext = useContext(AuthContext);
 
-   context.cartItems.itemsPrice =  context.cartItems &&
+  context.cartItems.itemsPrice =
+    context.cartItems &&
     context.cartItems.reduce((count, curItem) => {
-      return (
-        count +
-        parseInt(curItem.price) *
-          parseInt(curItem.quantity || 0)
-      );
-    }, 0)
-
-
+      return count + parseInt(curItem.price) * parseInt(curItem.quantity || 0);
+    }, 0);
 
   const submitOrder = (e) => {
     e.preventDefault();
+
+    console.log(context.cartItems);
+    dispatch(updateOrderState("price", context.cartItems.itemsPrice));
+
     if (!authContext.userId && !authContext.token) {
       setMessage("You need to login first");
       return;
     }
-    axios
+
+    console.log(order);
+
+    /*     axios
       .post("/order/add-order-info", {
         userId: authContext.userId,
-        firstName,
-        lastName,
-        companyName,
-        email,
-        phone,
-        country,
-        address,
-        city,
-        postCode,
-        orderNotes,
-        totalPrice:   context.cartItems.itemsPrice
+        order,
+        orderItems: context.cartItems,
       })
       .then((res) => {
         if (res?.data?.message === "Order successfully added") {
           localStorage.removeItem("cart-items");
-          setFirstName("");
-          setLastName("");
-          setCompanyName("");
-          setEmail("");
-          setPhone("");
-          setCountry("");
-          setAddress("");
-          setCity("");
-          setPostCode("");
-          setOrderNotes("");
+          dispatch(cleanOrder());
           setMessage(res.data.message);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err)); */
   };
 
   return (
@@ -115,8 +101,10 @@ function CheckoutArea() {
                         type="text"
                         className="form-control"
                         placeholder="First Name"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
+                        value={order.firstName}
+                        onChange={(e) =>
+                          dispatch(updateOrderState("name", e.target.value))
+                        }
                       />
                     </div>
                   </div>
@@ -130,21 +118,10 @@ function CheckoutArea() {
                         type="text"
                         className="form-control"
                         placeholder="Last Name"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="col-lg-12 col-md-12">
-                    <div className="form-group">
-                      <label>Company Name</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Company Name"
-                        value={companyName}
-                        onChange={(e) => setCompanyName(e.target.value)}
+                        value={order.lastName}
+                        onChange={(e) =>
+                          dispatch(updateOrderState("lastname", e.target.value))
+                        }
                       />
                     </div>
                   </div>
@@ -158,8 +135,10 @@ function CheckoutArea() {
                         type="email"
                         className="form-control"
                         placeholder="Email Address"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={order.email}
+                        onChange={(e) =>
+                          dispatch(updateOrderState("email", e.target.value))
+                        }
                       />
                     </div>
                   </div>
@@ -173,8 +152,10 @@ function CheckoutArea() {
                         type="text"
                         className="form-control"
                         placeholder="Phone"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
+                        value={order.phone}
+                        onChange={(e) =>
+                          dispatch(updateOrderState("phone", e.target.value))
+                        }
                       />
                     </div>
                   </div>
@@ -189,8 +170,10 @@ function CheckoutArea() {
                         type="text"
                         className="form-control"
                         placeholder="Country"
-                        value={country}
-                        onChange={(e) => setCountry(e.target.value)}
+                        value={order.country}
+                        onChange={(e) =>
+                          dispatch(updateOrderState("country", e.target.value))
+                        }
                       />
                     </div>
                   </div>
@@ -204,8 +187,10 @@ function CheckoutArea() {
                         type="text"
                         className="form-control"
                         placeholder="Address"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
+                        value={order.address}
+                        onChange={(e) =>
+                          dispatch(updateOrderState("address", e.target.value))
+                        }
                       />
                     </div>
                   </div>
@@ -219,8 +204,10 @@ function CheckoutArea() {
                         type="text"
                         className="form-control"
                         placeholder="Town / City"
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
+                        value={order.city}
+                        onChange={(e) =>
+                          dispatch(updateOrderState("city", e.target.value))
+                        }
                       />
                     </div>
                   </div>
@@ -234,8 +221,10 @@ function CheckoutArea() {
                         type="text"
                         className="form-control"
                         placeholder="Postcode"
-                        value={postCode}
-                        onChange={(e) => setPostCode(e.target.value)}
+                        value={order.postCode}
+                        onChange={(e) =>
+                          dispatch(updateOrderState("postCode", e.target.value))
+                        }
                       />
                     </div>
                   </div>
@@ -275,8 +264,10 @@ function CheckoutArea() {
                   <div className="col-lg-12 col-md-12">
                     <div className="form-group">
                       <textarea
-                        value={orderNotes}
-                        onChange={(e) => setOrderNotes(e.target.value)}
+                        value={order.orderNotes}
+                        onChange={(e) =>
+                          dispatch(updateOrderState("notes", e.target.value))
+                        }
                         name="notes"
                         id="notes"
                         cols="30"
@@ -346,30 +337,6 @@ function CheckoutArea() {
 
                 <div className="payment-box">
                   <h3 className="title">Payment Method</h3>
-
-                  <div className="payment-method">
-                    <p>
-                      <input
-                        type="radio"
-                        id="cash-on-delivery"
-                        name="radio-group"
-                        checked
-                      />
-                      <label htmlFor="cash-on-delivery">Cash on Delivery</label>
-                    </p>
-                    <p>
-                      <input
-                        type="radio"
-                        id="check-payments"
-                        name="radio-group"
-                      />
-                      <label htmlFor="check-payments">Check Payments</label>
-                    </p>
-                    <p>
-                      <input type="radio" id="paypal" name="radio-group" />
-                      <label htmlFor="paypal">PayPal</label>
-                    </p>
-                  </div>
                   <button
                     type="submit"
                     className="default-btn"

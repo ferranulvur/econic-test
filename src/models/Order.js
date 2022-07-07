@@ -14,10 +14,6 @@ const orderSchema = new Schema({
     type: String,
     required: true,
   },
-  company_name: {
-    type: String,
-    required: false,
-  },
   user_email: {
     type: String,
     required: true,

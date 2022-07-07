@@ -6,7 +6,7 @@ import {
   productAddReducer,
   individualProductReducer,
 } from "./Product/ProductReducer";
-import OrderReducer from "./Order/OrderReducer";
+import { OrderReducer, individualOrderReducer } from "./Order/OrderReducer";
 import PasswordReducer from "./ResetPassword/PasswordReducer";
 import { categoryReducer } from "./Category/CategoryReducer";
 
@@ -17,6 +17,7 @@ export default combineReducers({
   productUpdateReducer,
   productReducer,
   OrderReducer,
+  individualOrderReducer,
   PasswordReducer,
   categoryReducer,
 });

@@ -1,10 +1,20 @@
 import React, { useContext, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { Image } from "cloudinary-react";
 import { Link } from "react-router-dom";
 
 import CartContext from "../../contexts/cart-context";
 
+import {
+  listOrder,
+  cleanOrder,
+  updateOrderState,
+} from "../../redux/Order/OrderAction";
+
 function CartArea() {
+  const dispatch = useDispatch();
+  const { order } = useSelector((state) => state.individualOrderReducer);
   const context = useContext(CartContext);
 
   const updateQuantity = (cartItem, quantity) => {
@@ -20,6 +30,11 @@ function CartArea() {
       quantity,
     };
     context.addItemToCart(currentItem);
+  };
+
+  const proceedCheckout = (e, cartItem) => {
+    dispatch(updateOrderState("price", cartItem.itemsPrice));
+    console.log(e);
   };
 
   return (
@@ -60,7 +75,7 @@ function CartArea() {
                                   cloudName={
                                     process.env.REACT_APP_CLOUDINARY_NAME
                                   }
-                                  publicId={cartItem.image_public_id}
+                                  publicId={cartItem.publicImage}
                                   width="70"
                                   crop="scale"
                                 />
@@ -220,7 +235,11 @@ function CartArea() {
                     <span></span>
                   </Link>
                 ) : (
-                  <Link to="/checkout" className="default-btn">
+                  <Link
+                    to="/checkout"
+                    className="default-btn"
+                    onClick={(e) => proceedCheckout(e, context.cartItems)}
+                  >
                     Proceed to Checkout
                     <span></span>
                   </Link>

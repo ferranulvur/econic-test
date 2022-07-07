@@ -8,5 +8,6 @@ router.get("/", orderController.fetchOrders);
 router.post("/add-order-info", orderController.addOrderInfo);
 router.put("/:id/deliver", orderController.updateOrderToDelivered);
 router.get("/myorders/:id", orderController.getOrdersByUser);
+router.get("/fetch-order/:id", orderController.getOrderById);
 
 module.exports = router;
