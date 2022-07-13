@@ -1,69 +1,77 @@
 import React, { useRef, useState, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import axios from "axios";
 import { Link, withRouter } from "react-router-dom";
 
 import AuthContext from "../../contexts/auth-context";
 
+import { listUser } from "../../redux/User/UserAction";
+
 function LoginArea({ customClass = "", history }) {
+  const dispatch = useDispatch();
+
   const email = useRef();
   const password = useRef();
   const [alertMsg, setAlertMsg] = useState(null);
   const context = useContext(AuthContext);
 
-  if(localStorage.getItem("token")){
-    history.push("/")
+  if (localStorage.getItem("token")) {
+    history.push("/");
   }
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-      const config = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-      }
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-      const {data} = await axios.post(
-          'http://localhost:5000/user/login', 
-          {
-              email: email.current.value,
-              password: password.current.value
-          }, 
-          config
+    const { data } = await axios.post(
+      "http://localhost:5000/user/login",
+      {
+        email: email.current.value,
+        password: password.current.value,
+      },
+      config
+    );
+
+    console.log(data);
+
+    if (data.id) {
+      email.current.value = "";
+      password.current.value = "";
+      context.login(data.token, data.id, data.tokenExpiration);
+      localStorage.setItem("token", JSON.stringify(data.token));
+      localStorage.setItem("userId", JSON.stringify(data.id));
+      localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem(
+        "tokenExpiration",
+        JSON.stringify(data.tokenExpiration)
       );
+      dispatch(listUser(data.id));
 
-      console.log(data);
-
-      if (data.id) {
-        email.current.value = "";
-        password.current.value = "";
-        context.login(data.token, data.id, data.tokenExpiration);
-        localStorage.setItem("token", JSON.stringify(data.token));
-        localStorage.setItem("userId", JSON.stringify(data.id));
-        localStorage.setItem(
-          "tokenExpiration",
-          JSON.stringify(data.tokenExpiration)
-        );
-        setAlertMsg("Login successful");
-        history.push("/");
-      } else if (data.error) {
-        setAlertMsg(data);
-      }
-
+      setAlertMsg("Login successful");
+      history.push("/");
+    } else if (data.error) {
+      setAlertMsg(data);
+    }
   };
 
   return (
     <div className={"login-form" + customClass}>
       {alertMsg && console.log(alertMsg)}
       {alertMsg && alertMsg.error && (
-          <div className={`alert alert-danger`} role="alert">
+        <div className={`alert alert-danger`} role="alert">
           {alertMsg.error}
-          </div>
+        </div>
       )}
       {alertMsg && !alertMsg.error && (
-          <div className={`alert alert-success`} role="alert">
+        <div className={`alert alert-success`} role="alert">
           {alertMsg}
-          </div>
+        </div>
       )}
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
