@@ -8,5 +8,6 @@ router.put("/passwordreset", userController.passwordReset);
 router.post("/register", userController.postRegister);
 router.post("/check-role", userController.checkRole);
 router.get("/:id", userController.userDetails);
+router.post("/edit-user", userController.editUser);
 
 module.exports = router;

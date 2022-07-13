@@ -14,6 +14,7 @@ function User() {
       .get(`/user/${userId}`)
       .then((res) => {
         setUser(res.data.user);
+        console.log(res.data.user);
       })
       .catch((err) => console.log(err));
   }, []);

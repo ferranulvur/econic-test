@@ -50,6 +50,7 @@ exports.postLogin = async (req, res) => {
       id: user.id,
       token,
       tokenExpiration: "24h",
+      user: user,
     });
   } catch (err) {
     res.status(500);
@@ -58,16 +59,11 @@ exports.postLogin = async (req, res) => {
 
 exports.postRegister = async (req, res) => {
   try {
-    
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
 
-    const { valid, errors } = validateRegisterInput(
-      username,
-      email,
-      password
-    );
+    const { valid, errors } = validateRegisterInput(username, email, password);
 
     if (!valid) {
       return res.status(401).json({
@@ -95,13 +91,14 @@ exports.postRegister = async (req, res) => {
       orders: [],
     });
 
-    await user.save();
+    const newUser = await user.save();
 
     res.status(200).json({
       message: "User created",
+      newUser,
     });
   } catch (err) {
-    res.status(500);
+    res.status(500).json(err);
   }
 };
 
@@ -114,6 +111,43 @@ exports.userDetails = async (req, res) => {
     return res.status(200).json({
       user,
     });
+  } catch (err) {
+    res.status(500);
+  }
+};
+
+exports.editUser = async (req, res) => {
+  try {
+    const _id = req.body.id;
+    const username = req.body.username;
+    const email = req.body.email;
+    const name = req.body.name;
+    const lastname = req.body.lastname;
+    const phone = req.body.phone;
+    const address = req.body.address;
+    const city = req.body.city;
+    const country = req.body.country;
+    const postcode = req.body.postcode;
+
+    const userUpdated = await User.updateOne(
+      { _id: _id },
+      {
+        $set: {
+          username: username,
+          email: email,
+          name: name,
+          lastname: lastname,
+          phone: phone,
+          address: address,
+          city: city,
+          country: country,
+          postcode: postcode,
+        },
+      }
+    );
+    return res
+      .status(200)
+      .json({ message: `User ${req.body.name} updated`, userUpdated });
   } catch (err) {
     res.status(500);
   }
@@ -164,13 +198,13 @@ exports.passwordReset = async (req, res) => {
     const hashedPassword = await bcrypt.hash(newpassword, 12);
 
     user.password = hashedPassword;
-    const updateUserPassword = await user.save()
+    const updateUserPassword = await user.save();
     const token = genAccTkn.generateAccessToken(user);
     return res.status(200).json({
       id: user.id,
       token,
       tokenExpiration: "24h",
-      message: 'Password has been updated'
+      message: "Password has been updated",
     });
   } catch (err) {
     res.status(500);
