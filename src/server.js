@@ -5,6 +5,9 @@ const cors = require("cors");
 const path = require("path");
 const fileUpload = require("express-fileupload");
 
+const stripe = require("stripe")(process.env.STRIPE_KEY);
+const uuid = require("uuid").v4;
+
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
 
@@ -14,6 +17,7 @@ const userRoutes = require("./routings/user");
 const orderRoutes = require("./routings/order");
 const categoryRoutes = require("./routings/category");
 const cloudinaryRoutes = require("./routings/cloudinary");
+const stripeRoutes = require("./routings/stripe");
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
@@ -49,6 +53,7 @@ app.use("/products", productRoutes);
 app.use("/user", userRoutes);
 app.use("/order", orderRoutes);
 app.use("/categories", categoryRoutes);
+app.use("/stripe", stripeRoutes);
 
 production &&
   app.get("/*", (req, res) => {
