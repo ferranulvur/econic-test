@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   ORDER_LIST,
   ORDER_ERROR,
+  INDIVIDUAL_ORDER_UPD_USER_ID,
   INDIVIDUAL_ORDER_UPD_NAME,
   INDIVIDUAL_ORDER_UPD_LASTNAME,
   INDIVIDUAL_ORDER_UPD_EMAIL,
@@ -39,7 +40,7 @@ export const listOrders = () => async (dispatch) => {
   }
 };
 
-export const listProduct = (id) => async (dispatch) => {
+export const listOrder = (id) => async (dispatch) => {
   try {
     const { data } = await axios.get(`/order/fetch-order/${id}`, {
       headers: {
@@ -70,6 +71,12 @@ export const updateOrderState = (key, value) => async (dispatch) => {
       case "name":
         dispatch({
           type: INDIVIDUAL_ORDER_UPD_NAME,
+          payload: value,
+        });
+        break;
+      case "userId":
+        dispatch({
+          type: INDIVIDUAL_ORDER_UPD_USER_ID,
           payload: value,
         });
         break;

@@ -1,6 +1,7 @@
 import {
   ORDER_LIST,
   ORDER_ERROR,
+  INDIVIDUAL_ORDER_UPD_USER_ID,
   INDIVIDUAL_ORDER_UPD_NAME,
   INDIVIDUAL_ORDER_UPD_LASTNAME,
   INDIVIDUAL_ORDER_UPD_EMAIL,
@@ -24,6 +25,7 @@ const INITIAL_STATE = {
 
 const initialStateIndividual = {
   order: {
+    userId: "",
     name: "",
     lastname: "",
     email: "",
@@ -88,6 +90,14 @@ export const individualOrderReducer = (
         order: {
           ...state.order,
           name: payload,
+        },
+      };
+    case INDIVIDUAL_ORDER_UPD_USER_ID:
+      return {
+        ...state,
+        order: {
+          ...state.order,
+          userId: payload,
         },
       };
     case INDIVIDUAL_ORDER_UPD_LASTNAME:
