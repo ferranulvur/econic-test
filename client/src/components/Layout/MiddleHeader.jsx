@@ -18,26 +18,12 @@ const pagesRoutes = [
   "/my-account",
   "/error-404",
   "/tracking-order",
-  "/compare",
   "/terms-of-service",
   "/privacy-policy",
 ];
-const shopRoutes = [
-  "/shop",
-  "/shop-list-view",
-  "/shop-left-sidebar",
-  "/shop-right-sidebar",
-  "/shop-full-width",
-  "/cart",
-  "/wishlist",
-  "/checkout",
-  "/products-details",
-  "/products-details-sidebar",
-];
-
+const shopRoutes = ["/shop", "/cart", "/checkout", "/products-details"];
 
 function MiddleHeader({ history }) {
-
   const { pathname } = useLocation();
   const context = useContext(CartContext);
 
@@ -59,7 +45,7 @@ function MiddleHeader({ history }) {
                 isActive={() => pagesRoutes.includes(pathname)}
                 className="nav-link"
               >
-                Pages 
+                Pages
                 <i className="bx bx-chevron-down chevron-display"></i>
                 <span className="plus_icon">+</span>
               </NavLink>
@@ -89,140 +75,122 @@ function MiddleHeader({ history }) {
                         </ul>
                       </div>
 
-                            <div className="col">
-                              <ul className="megamenu-submenu">
-                                <li>
-                                  <NavLink to={"/faqs"} className="nav-link">
-                                    FAQ's
-                                  </NavLink>
-                                </li>
+                      <div className="col">
+                        <ul className="megamenu-submenu">
+                          <li>
+                            <NavLink to={"/faqs"} className="nav-link">
+                              FAQ's
+                            </NavLink>
+                          </li>
 
-                                <li>
-                                  <NavLink to="/my-account" className="nav-link">
-                                    My Account
-                                  </NavLink>
-                                </li>
+                          <li>
+                            <NavLink to="/my-account" className="nav-link">
+                              My Account
+                            </NavLink>
+                          </li>
 
-                                <li>
-                                  <NavLink to="/error-404" className="nav-link">
-                                    404 Error
-                                  </NavLink>
-                                </li>
-                              </ul>
-                            </div>
+                          <li>
+                            <NavLink to="/error-404" className="nav-link">
+                              404 Error
+                            </NavLink>
+                          </li>
+                        </ul>
+                      </div>
 
-                            <div className="col">
-                              <ul className="megamenu-submenu">
-                                <li>
-                                  <NavLink
-                                    to="/tracking-order"
-                                    className="nav-link"
-                                  >
-                                    Tracking Order
-                                  </NavLink>
-                                </li>
+                      <div className="col">
+                        <ul className="megamenu-submenu">
+                          <li>
+                            <NavLink to="/tracking-order" className="nav-link">
+                              Tracking Order
+                            </NavLink>
+                          </li>
 
-                                <li>
-                                  <NavLink to="/compare" className="nav-link">
-                                    Compare
-                                  </NavLink>
-                                </li>
+                          <li>
+                            <NavLink
+                              to="/terms-of-service"
+                              className="nav-link"
+                            >
+                              Terms Of Service
+                            </NavLink>
+                          </li>
 
-                                <li>
-                                  <NavLink
-                                    to="/terms-of-service"
-                                    className="nav-link"
-                                  >
-                                    Terms Of Service
-                                  </NavLink>
-                                </li>
+                          <li>
+                            <NavLink to="/privacy-policy" className="nav-link">
+                              Privacy Policy
+                            </NavLink>
+                          </li>
 
-                                <li>
-                                  <NavLink
-                                    to="/privacy-policy"
-                                    className="nav-link"
-                                  >
-                                    Privacy Policy
-                                  </NavLink>
-                                </li>
-
-                                <li>
-                                  <NavLink to="/coming-soon" className="nav-link">
-                                    Coming Soon
-                                  </NavLink>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
+                          <li>
+                            <NavLink to="/coming-soon" className="nav-link">
+                              Coming Soon
+                            </NavLink>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </li>
 
             <li className="nav-item">
-                  <NavLink
-                    to="/shop"
-                    isActive={() => shopRoutes.includes(pathname)}
-                    className="nav-link"
-                  >
-                    Shop <i className="bx bx-chevron-down chevron-display"></i>
-                    <span className="plus_icon">+</span>
+              <NavLink
+                to="/shop"
+                isActive={() => shopRoutes.includes(pathname)}
+                className="nav-link"
+              >
+                Shop <i className="bx bx-chevron-down chevron-display"></i>
+                <span className="plus_icon">+</span>
+              </NavLink>
+              <ul className="dropdown-menu">
+                <li className="nav-item">
+                  <NavLink to="/shop" className="nav-link">
+                    Shop
                   </NavLink>
-                  <ul className="dropdown-menu">
-                    <li className="nav-item">
-                      <NavLink to="/shop" className="nav-link">
-                        Shop
-                      </NavLink>
-                    </li>
+                </li>
 
-                    <li className="nav-item">
-                      <NavLink to="/shop-list-view" className="nav-link">
-                        Shop List View
-                      </NavLink>
-                    </li>
+                <li className="nav-item">
+                  <NavLink to="/shop-list-view" className="nav-link">
+                    Shop List View
+                  </NavLink>
+                </li>
 
-                    <li className="nav-item">
-                      <NavLink to="/shop-left-sidebar" className="nav-link">
-                        Shop Left Sidebar
-                      </NavLink>
-                    </li>
+                <li className="nav-item">
+                  <NavLink to="/shop-left-sidebar" className="nav-link">
+                    Shop Left Sidebar
+                  </NavLink>
+                </li>
 
-                    <li className="nav-item">
-                      <NavLink to="/shop-right-sidebar" className="nav-link">
-                        Shop Right Sidebar
-                      </NavLink>
-                    </li>
+                <li className="nav-item">
+                  <NavLink to="/shop-right-sidebar" className="nav-link">
+                    Shop Right Sidebar
+                  </NavLink>
+                </li>
 
-                    <li className="nav-item">
-                      <NavLink to="/shop-full-width" className="nav-link">
-                        Shop Full Width
-                      </NavLink>
-                    </li>
+                <li className="nav-item">
+                  <NavLink to="/shop-full-width" className="nav-link">
+                    Shop Full Width
+                  </NavLink>
+                </li>
 
-                    <li className="nav-item">
-                      <NavLink to="/cart" className="nav-link">
-                        Cart
-                      </NavLink>
-                    </li>
+                <li className="nav-item">
+                  <NavLink to="/cart" className="nav-link">
+                    Cart
+                  </NavLink>
+                </li>
 
-                    <li className="nav-item">
-                      <NavLink to="/wishlist" className="nav-link">
-                        Wishlist
-                      </NavLink>
-                    </li>
-
-                    <li className="nav-item">
-                      <NavLink to="/checkout" className="nav-link">
-                        Checkout
-                      </NavLink>
-                    </li>
-                  </ul>
+                <li className="nav-item">
+                  <NavLink to="/checkout" className="nav-link">
+                    Checkout
+                  </NavLink>
+                </li>
+              </ul>
             </li>
 
             <li className="nav-item">
-                  <NavLink to="/contact" className="nav-link">
-                    Contact
-                  </NavLink>
+              <NavLink to="/contact" className="nav-link">
+                Contact
+              </NavLink>
             </li>
           </div>
         </div>

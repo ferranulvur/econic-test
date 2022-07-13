@@ -209,14 +209,6 @@ function Navbar() {
                                   </li>
                                   <li className="nav-item">
                                     <NavLink
-                                      to="/add-product"
-                                      className="nav-link dark-nav-item"
-                                    >
-                                      Add Product
-                                    </NavLink>
-                                  </li>
-                                  <li className="nav-item">
-                                    <NavLink
                                       to="/cart"
                                       className="nav-link dark-nav-item"
                                     >
@@ -229,14 +221,6 @@ function Navbar() {
                                       className="nav-link dark-nav-item"
                                     >
                                       Order
-                                    </NavLink>
-                                  </li>
-                                  <li className="nav-item">
-                                    <NavLink
-                                      to="/wishlist"
-                                      className="nav-link dark-nav-item"
-                                    >
-                                      Wishlist
                                     </NavLink>
                                   </li>
                                   <li className="nav-item">

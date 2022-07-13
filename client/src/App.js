@@ -12,26 +12,13 @@ import Contact from "./pages/About/Contact";
 import Faqs from "./pages/About/Faqs";
 import Error404 from "./pages/About/Error-404";
 import TrackingOrder from "./pages/About/TrackingOrder";
-import Compare from "./pages/About/Compare";
 import TermsOfService from "./pages/About/TermsOfService";
 import PrivacyPolicy from "./pages/About/PrivacyPolicy";
-import MyAccount from "./pages/About/MyAccount";
 import Shop from "./pages/Shop/Shop";
-import ShopListView from "./pages/Shop/ShopListView";
-import ShopLeftSidebar from "./pages/Shop/ShopLeftSidebar";
-import ShopRightSidebar from "./pages/Shop/ShopRightSidebar";
-import ShopFullWidth from "./pages/Shop/ShopFullWidth";
 import Cart from "./pages/Shop/Cart";
 import Orders from "./pages/Shop/Orders";
-import WishList from "./pages/Shop/WishList";
 import Checkout from "./pages/Shop/Checkout";
 import ProductsDetails from "./pages/Shop/ProductsDetails";
-import Blog from "./pages/Blog/Blog";
-import BlogListView from "./pages/Blog/BlogListView";
-import BlogLeftSidebar from "./pages/Blog/BlogLeftSidebar";
-import BlogRightSidebar from "./pages/Blog/BlogRightSidebar";
-import BlogFullWidth from "./pages/Blog/BlogFullWidth";
-import BlogDetails from "./pages/Blog/BlogDetails";
 import User from "./pages/User/User";
 import Products from "./pages/Products/Products";
 import Categories from "./pages/Categories/Categories";
@@ -150,10 +137,8 @@ function App() {
               {!token && <Route path="/login" component={Login} />}
               {!token && <Route path="/register" component={Register} />}
 
-              <Route path="/my-account" component={MyAccount} />
               <Route path="/error-404" component={Error404} />
               <Route path="/tracking-order" component={TrackingOrder} />
-              <Route path="/compare" component={Compare} />
               <Route path="/terms-of-service" component={TermsOfService} />
               <Route path="/privacy-policy" component={PrivacyPolicy} />
               <Route exact path="/shop" component={Shop} />
@@ -164,24 +149,13 @@ function App() {
                 path="/search/:keyword/page/:pageNumber"
                 component={Shop}
               />
-              <Route path="/shop-list-view" component={ShopListView} />
-              <Route path="/shop-left-sidebar" component={ShopLeftSidebar} />
-              <Route path="/shop-right-sidebar" component={ShopRightSidebar} />
-              <Route path="/shop-full-width" component={ShopFullWidth} />
               <Route path="/cart" component={Cart} />
               <Route path="/order" component={Orders} />
-              <Route path="/wishlist" component={WishList} />
               <Route path="/checkout" component={Checkout} />
               <Route
                 path="/products-details/:productId"
                 component={ProductsDetails}
               />
-              <Route path="/blog" component={Blog} />
-              <Route path="/blog-list-view" component={BlogListView} />
-              <Route path="/blog-left-sidebar" component={BlogLeftSidebar} />
-              <Route path="/blog-right-sidebar" component={BlogRightSidebar} />
-              <Route path="/blog-full-width" component={BlogFullWidth} />
-              <Route path="/blog-details" component={BlogDetails} />
               <Route path="/coming-soon" component={ComingSoon} />
               {token && <Route path="/profile" component={User} />}
               {token && <Route path="/products" component={Products} />}
