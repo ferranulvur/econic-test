@@ -10,9 +10,9 @@ import { Nav, NavDropdown } from "react-bootstrap";
 import "./Navbar.css";
 
 import { listCategories } from "../../redux/Category/CategoryAction";
+import { listUser } from "../../redux/User/UserAction";
 
 function Navbar() {
-  const [user, setUser] = useState({});
   const [visible, setVisible] = useState(false);
   const context = useContext(AuthContext);
   const cartContext = useContext(CartContext);
@@ -24,6 +24,7 @@ function Navbar() {
 
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categoryReducer);
+  const { user } = useSelector((state) => state.userReducer);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -36,14 +37,7 @@ function Navbar() {
 
   useEffect(() => {
     if (context && context.userId) {
-      axios
-        .get(`/user/${context.userId}`)
-        .then((res) => {
-          setUser(res.data.user);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      dispatch(listUser(context.userId));
     }
     dispatch(listCategories());
   }, [context]);
@@ -111,7 +105,7 @@ function Navbar() {
                       </a>
                       <ul className="dropdown-menu">
                         {categories.map((category) => (
-                          <li className="nav-item">
+                          <li className="nav-item" key={category._id}>
                             <Link
                               to={`/shop/${category.slug}`}
                               className="nav-link dark-nav-item"
