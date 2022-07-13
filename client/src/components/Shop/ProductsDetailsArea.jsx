@@ -58,7 +58,9 @@ function ProductsDetailsArea() {
 
             <div className="col-lg-6 col-md-6">
               <div className="product-content content-two">
-                <h3>{product.name}</h3>
+                <div className="">
+                  <h3>{product.name}</h3>
+                </div>
 
                 <div className="product-review">
                   <div className="rating">

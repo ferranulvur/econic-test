@@ -34,6 +34,9 @@ function CartArea() {
 
   const proceedCheckout = (e, cartItem) => {
     dispatch(updateOrderState("price", cartItem.itemsPrice));
+    console.log(cartItem);
+    dispatch(updateOrderState("orderItems", cartItem));
+
     console.log(e);
   };
 
